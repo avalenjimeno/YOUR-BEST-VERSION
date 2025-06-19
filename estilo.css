@@ -1,0 +1,340 @@
+body {
+    opacity: 1; /* Asegura que el body sea totalmente opaco */
+    background-color: rgb(233, 207, 156);
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative; /* Necesario para que el pseudo-elemento se posicione correctamente */
+    scroll-behavior: smooth; /* Desplazamiento suave para enlaces ancla */
+    padding-bottom: 50px; /* Añade relleno en la parte inferior para evitar que el contenido sea ocultado por el footer fijo. Ajusta según la altura de tu footer. */
+}
+
+/* --- LOGO DE FONDO COMO MARCA DE AGUA (OPACIDAD Y ANIMACIÓN CONTROLADAS) --- */
+body::before {
+    content: ''; /* Obligatorio para pseudo-elementos */
+    position: fixed; /* Fija el logo en la ventana del navegador */
+    top: 50%; /* Lo mueve a la mitad de la altura de la pantalla */
+    left: 50%; /* Lo mueve a la mitad del ancho de la pantalla */
+    transform: translate(-50%, calc(-50% + 40px)); /* Ajusta para centrarlo y moverlo 40px hacia abajo */
+    width: 30%; /* Tamaño del logo (ajusta según necesites) */
+    height: 0; /* Se establece la altura en 0 para usar padding-top para la relación de aspecto */
+    padding-top: 30%; /* Truco para mantener la proporción si el ancho es un % (aquí 1:1) */
+    background-image: url('productos/logoYBV.png'); /* Ruta de tu logo. Asegúrate de que esta sea la ruta del logo de fondo */
+    background-repeat: no-repeat;
+    background-position: center center; /* Centrar dentro de su propio contenedor */
+    background-size: contain; /* Asegura que el logo quepa dentro de las dimensiones */
+    opacity: 0.01; /* Establecido a muy tenue (0.01 para casi invisible). Ajusta a tu gusto (ej. 0.05, 0.1) */
+    z-index: -1; /* Lo envía al fondo de todo */
+    pointer-events: none; /* Evita que el logo interfiera con clics o selecciones de texto */
+    animation-name: fadeLogoIn; /* Nombre de la animación */
+    animation-duration: 1s; /* Duración de la animación (3 segundos) */
+    animation-timing-function: ease-in-out; /* Curva de velocidad (inicio y final suaves) */
+    animation-fill-mode: forwards; /* Mantiene el estado final de la animación */
+    animation-delay: 0.1s; /* Opcional: Retrasa el inicio de la animación 0.5 segundos */
+}
+
+/* --- DEFINICIÓN DE LA ANIMACIÓN PARA EL LOGO DE FONDO --- */
+@keyframes fadeLogoIn {
+    0% {
+        opacity: 0; /* Completamente invisible al inicio */
+    }
+    100% {
+        opacity: 0.3; /* Opacidad final (tu deseado casi invisible) */
+    }
+}
+
+h1 {
+    color: rgb(0, 0, 0);
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 37px;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.menu-boton {
+    background-color: #a87a49;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-family: 'Montserrat', sans-serif;
+    margin: 5px;
+}
+
+.menu-boton:hover {
+    background-color: #593916;
+    color: black;
+    transition: background-color 0.5s transform 0.2s;
+}
+
+footer {
+    position: fixed; /* Mantiene el footer siempre visible en la parte inferior */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #a87a49;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+}
+
+header {
+    position: relative; /* Permite el posicionamiento absoluto de los hijos */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    animation: aparecer 0.5s ease-out forwards; /* Asegura que el encabezado aparezca con animación */
+    opacity: 0; /* Comienza invisible para la animación */
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+/* CONTENEDOR DEL LOGO (logo de la esquina superior izquierda) */
+.logo-contenedor {
+    position: absolute;
+    left: 30px;
+    top: 10px;
+}
+
+/* IMAGEN DEL LOGO (logo de la esquina superior izquierda) */
+.logo {
+    height: 90px;
+    width: auto;
+}
+
+@keyframes aparecer {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- CONTENEDOR DE PRODUCTOS (si se usa en otro lugar, ajusta su margen) --- */
+.productos-contenedor {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: stretch;
+}
+
+.producto {
+    background-color: antiquewhite;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgb(0, 0, 0);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    padding: 20px;
+    text-align: center;
+    font-size: 22px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.producto img {
+    height: 200px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.producto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.moverimagen {
+    width: 40%;
+    height: 100%;
+    animation: aparecer 1.5s ease-out forwards;
+}
+
+/* --- LÍNEA DETRÁS DE LOS BOTONES --- */
+.linea-encima {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    border: none;
+    z-index: 0;
+    margin: 0;
+    top: 95px; /* Ajusta este valor si la línea no está perfectamente alineada */
+}
+
+.botones-contenedor {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 0;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- ESTILOS PARA LAS NUEVAS SECCIONES DE INICIO --- */
+.seccion-inicio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    width: 80%;
+    margin: 0 auto 20px auto; /* Centrado horizontal y margen inferior */
+    box-sizing: border-box;
+    padding: 20px;
+    animation: aparecer 0.5s ease-out forwards; /* Aplicando la animación 'aparecer' */
+    text-align: center;
+    color: #333;
+    font-size: 1.6em; /* Tamaño de fuente base para el contenido de la sección */
+    border-bottom: 1px solid #ccc;
+    border-radius: 20px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    opacity: 0; /* Comienza invisible para que la animación funcione */
+}
+
+/* Colores de fondo distintos para cada sección */
+#seccion1 {
+    background-color: #e6e6fa; /* Lavanda claro */
+}
+
+#seccion2 {
+    background-color: #e6e6fa; /* Lavanda claro */
+}
+
+#seccion3 {
+    background-color: #e6e6fa; /* Lavanda claro */
+}
+
+.seccion-inicio h2 {
+    font-size: 2.5em; /* Tamaño del título de la sección */
+    margin-bottom: 20px;
+    color: #4a2c0f; /* Color de título marrón oscuro */
+}
+
+.seccion-inicio p { /* Estilo específico para párrafos dentro de las secciones */
+    font-size: 1.1em; /* Más pequeño en relación con el tamaño de fuente base de la sección */
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+.seccion-inicio img {
+    max-width: 80%; /* Las imágenes dentro de las secciones no se desbordan */
+    height: auto;
+    margin-top: 20px;
+    border-radius: 8px; /* Bordes ligeramente redondeados para las imágenes */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* --- ESTILOS PARA LOS ENLACES DE SECCIÓN (los contenedores clicables) --- */
+.seccion-link {
+    text-decoration: none; /* Elimina el subrayado */
+    color: inherit; /* Hereda el color del texto */
+    display: block; /* Hace que el enlace cubra todo el div de la sección */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Animación para el efecto hover */
+    margin-bottom: 20px; /* Añade espacio entre las secciones clicables */
+}
+
+.seccion-link:last-of-type {
+    margin-bottom: 0; /* Elimina el margen inferior del último enlace para evitar espacio extra antes del footer */
+}
+
+.seccion-link:hover .seccion-inicio { /* Efecto al pasar el ratón sobre el enlace, afecta al div dentro */
+    transform: translateY(-5px); /* Un ligero levantamiento */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+/* --- ESTILOS PARA EL CONTENIDO PRINCIPAL DE LAS NUEVAS PÁGINAS INDIVIDUALES --- */
+.pagina-individual-contenido {
+    width: 80%;
+    margin: 40px auto 80px auto; /* Centrado, margen superior e inferior */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+    box-sizing: border-box; /* Para que el padding se incluya en el ancho */
+    min-height: calc(100vh - 250px); /* Ajusta la altura mínima para que el footer no suba si hay poco contenido. 250px es una estimación de la altura del header + footer */
+}
+
+.pagina-individual-contenido h2 {
+    font-size: 2.5em;
+    color: #4a2c0f;
+    margin-bottom: 20px;
+}
+
+.pagina-individual-contenido p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+.ejercicios-contenedor {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: stretch;
+}
+.trenes {
+    background-color: antiquewhite;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgb(0, 0, 0);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    padding: 20px;
+    text-align: center;
+    font-size: 22px;
+    font-family: 'Montserrat', sans-serif;
+}
+.trenes img {
+    height: 300px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 10px;
+    border-radius: 12px;
+}
+.musculos-supinf {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: stretch;
+}
+.musculos {
+    background-color: antiquewhite;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgb(0, 0, 0);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    padding: 20px;
+    text-align: center;
+    font-size: 22px;
+    font-family: 'Montserrat', sans-serif;
+}
+.musculos img {
+    height: 300px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 10px;
+    border-radius: 12px;
+}
