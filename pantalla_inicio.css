@@ -1,0 +1,113 @@
+body {
+    margin: 0;
+    padding: 0; 
+    position: relative;
+    background-color: #1f211f; 
+    opacity: 1;
+    background-image: url(productos/fondo_inicio.png);
+    background-attachment: fixed; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+main {
+    display: block; 
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 50px); 
+    z-index: 5; 
+    background-color: transparent; 
+}
+
+.seccion-inicio {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%; 
+    pointer-events: none; 
+    z-index: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%; 
+    color: #F0F0F0;
+    font-size: 60px;
+    font-family: "Audiowide", sans-serif;
+    text-align: center;
+    text-shadow: 
+        4px 4px 0 #000000, 
+        -4px 4px 0 #000000,
+        2px -4px 0 #000000, 
+        -4px -4px 0 #000000; 
+    
+    margin: 0;
+    padding: 0;
+    opacity: 1;
+    background-color: rgba(221, 223, 222, 0);
+}
+
+.botones-contenedor {
+    position: relative; 
+    left: 50%;
+    transform: translateX(-50%); 
+    top: 70%;
+    display: flex; 
+    justify-content: center;
+    gap: 40px; 
+    z-index: 1000; 
+}
+
+
+.menu-boton {
+    text-decoration: none;
+    background-color: #c5c5c582;
+    color: #000000; 
+    border: 2px solid #B40303; 
+    padding: 10px 40px;
+    font-size: 35px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-family: "Audiowide", sans-serif;
+    font-weight: 700;
+    display: inline-block; 
+    position: relative;
+    z-index: 10; 
+}
+
+.menu-boton:hover {
+    background-color: #00000081;
+    color: rgb(180, 3, 3);
+    transform: scale(1.05);
+    text-shadow: none; 
+}
+
+
+.logo-contenedor {
+    position: fixed;
+    left: 30px;
+    top: 3%;
+}
+
+.logo {
+    height: 100px;
+    width: auto;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #242424;
+    color: #cfcece;
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+    font: 16px "Montserrat", sans-serif;
+    font-weight: 600;
+}

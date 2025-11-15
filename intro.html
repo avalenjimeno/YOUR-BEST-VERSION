@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YOUR BEST VERSION</title>
+<link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+<style>
+
+body {
+    margin: 0;
+    background-color: #000000; 
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; 
+}
+
+.contenedor-intro {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    z-index: 100; 
+    background-color: transparent; 
+}
+
+#videoFondo {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1; 
+    filter: blur(0px); 
+    transform: scale(1.0);
+}
+
+.contenedor { 
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10; 
+}
+
+.contenedor img {
+    width: 30%;
+    max-width: 500px;
+    opacity: 0;
+    transform: scale(1);
+    animation: appear 2.5s ease-in-out forwards; 
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+        filter: brightness(0.5);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: brightness(1.4);
+    }
+}
+
+.flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%; 
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.6) 0%, transparent 70%);
+    opacity: 0;
+    animation: flashEffect 3.5s ease-in-out forwards;
+    pointer-events: none;
+    z-index: 20; 
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; visibility: visible; } 
+    100% { opacity: 0; visibility: hidden; } 
+}
+
+.intro-desvanecer {
+    animation: fadeOut 1s ease-out forwards;
+}
+
+@keyframes flashEffect {
+    0%, 71% {
+        opacity: 0;
+    }
+    79% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+</style>
+</head>
+<body>
+    
+    <div class="contenedor-intro">
+        
+        <video autoplay loop muted playsinline id="videoFondo">
+            <source src="productos/videofondo.mp4" type="video/mp4">
+            <source src="productos/videofondo.webm" type="video/webm"> 
+        </video>
+
+        <div class="contenedor">
+            <img src="productos/logoYBV.png" alt="Your Best Version Logo">
+            <div class="flash"></div>
+        </div>
+
+    </div>
+    <script>
+    const introContainer = document.querySelector('.contenedor-intro'); 
+    const duracionAnimacion = 3500; 
+    const tiempoEspera = duracionAnimacion + 500; 
+    const duracionFadeOut = 1000; 
+    setTimeout(() => {
+        introContainer.classList.add('intro-desvanecer');
+        setTimeout(() => {
+            window.location.href = 'index.html'; 
+        }, duracionFadeOut); 
+    }, tiempoEspera); 
+    </script>
+</body>
+</html>
