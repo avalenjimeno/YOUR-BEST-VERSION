@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css"> 
+    
+    <title>Personaliza Tu Catálogo de Platos - Paso 2 | YOUR BEST VERSION</title>
+    
+    <link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos específicos para el Paso 2 */
+        .contenido-dieta {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.5);
+        }
+        h2 {
+            color: #ff004c;
+            border-bottom: 3px solid #ff004c;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        /* Contenedor de la meta calórica y requerimientos */
+        .meta-calorica {
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #333;
+            border-left: 5px solid #00aaff;
+            font-size: 1.1em;
+            text-align: center;
+        }
+        .meta-calorica strong {
+            color: #ffcc00;
+        }
+        .meta-calorica .macros-requeridos {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.95em;
+            color: #ccc;
+        }
+        
+        /* Resumen de la selección */
+        .resumen-seleccion {
+            padding: 15px;
+            margin-bottom: 30px;
+            background-color: #2a2a2a;
+            border: 1px solid #4CAF50;
+            border-radius: 6px;
+            font-size: 1em;
+            text-align: center;
+        }
+        .resumen-seleccion strong {
+            color: #4CAF50; 
+            font-size: 1.2em;
+        }
+        
+        /* Estilos del catálogo de platos */
+        .catalogo-platos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .seccion-comida {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 5px solid #ff004c;
+        }
+        .seccion-comida h3 {
+            color: #00aaff;
+            margin-top: 0;
+            border-bottom: 1px dashed #555;
+            padding-bottom: 10px;
+        }
+
+        .plato-item.vip:before {
+            font-size: 0.9em;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .plato-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        /* Cambio de comportamiento: El color 'seleccionado' se togglea, no se cambia entre hermanos */
+        .plato-item.seleccionado {
+            background-color: #4CAF50; 
+            border-color: #fff;
+        }
+        .plato-item:hover:not(.seleccionado) {
+            background-color: #3e3e3e;
+            border-color: #00aaff;
+        }
+        .plato-item p {
+            margin: 5px 0 0 0;
+            font-size: 0.9em;
+            color: #ccc;
+        }
+        .plato-item .nombre-plato {
+            font-weight: bold;
+            color: white;
+            font-size: 1.1em;
+        }
+        
+        /* Botón Finalizar */
+        .boton-finalizar {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 40px;
+            background-color: #ff004c; 
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .boton-finalizar:hover {
+            background-color: #e00040;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo-contenedor">
+            <img src="productos/logopestaña.png" alt="Logo de YBV" class="logo">
+        </div>
+
+        <div class="titulo-contenedor">
+            <h1>Personaliza Tu Catálogo de Platos - Paso 2</h1>
+            <div class="botones-contenedor">
+                <a href="contenido_inicial.html" class="menu-boton">Inicio</a>
+                <a href="empresa.html" class="menu-boton">Empresa</a>
+                <a href="productos.html" class="menu-boton">Productos</a>
+                <a href="contacto.html" class="menu-boton">Contacto</a>
+            </div>
+        </div>
+        <hr class="linea-encima">
+    </header>
+
+    <main>
+        <div class="contenido-dieta">
+            <h2>Selección de Platos para tu Catálogo Personal</h2>
+            
+            <div id="metaCaloricaDisplay" class="meta-calorica">
+                Cargando tu meta calórica...
+            </div>
+
+            <div id="resumenCaloricoDisplay" class="resumen-seleccion">
+                Platos en Catálogo Personal: 0 platos | Suma Total: <strong>0 Kcal</strong> | P: 0g | G: 0g | C: 0g
+            </div>
+            
+            <p style="color: #ffcc00; font-weight: bold;">Selecciona MÚLTIPLES platos por comida. Los platos que marques aquí serán las únicas opciones disponibles para crear tu menú de 7 días.</p>
+            
+            <div class="catalogo-platos" id="catalogoPlatos">
+                </div>
+            
+            <button id="finalizarDieta" class="boton-finalizar">Finalizar Catálogo y Avanzar al Paso 3</button>
+
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 YOUR BEST VERSION. Todos los Derechos Reservados.
+    </footer>
+
+    <script>
+        let metaCalorica = 0;
+        let datosNutricionales = {};
+        let catalogoPersonal = {}; // Almacenará los platos seleccionados
+        
+        // --- CATÁLOGO DE PLATOS MEJORADO PARA ALTO CALÓRICO (3000+ Kcal) ---
+        const platosDisponibles = {
+            'Desayuno': [
+                { id: 'd1', nombre: 'Omelette Claras y Espinacas', cal: 280, p: 30, g: 8, c: 15 },
+                { id: 'd2', nombre: 'Avena con Frutas y Nueces', cal: 450, p: 15, g: 12, c: 70 },
+                { id: 'd3', nombre: 'Tostada Integral Aguacate y Pavo', cal: 380, p: 25, g: 15, c: 40 },
+                { id: 'd4', nombre: 'Batido Hipercalórico de Mantequilla', cal: 650, p: 40, g: 30, c: 50 },
+                { id: 'd5', nombre: 'Tortitas de Avena y Whey con Miel', cal: 800, p: 50, g: 25, c: 95, vip: true },
+                { id: 'd6', nombre: 'Huevos Rancheros con Frijoles', cal: 950, p: 45, g: 50, c: 80, vip: true } // Nuevo: Máximo Calórico
+            ],
+            'Almuerzo': [
+                { id: 'a1', nombre: 'Pechuga Plancha con Arroz Integral', cal: 500, p: 45, g: 10, c: 55 },
+                { id: 'a2', nombre: 'Salmón Horno, Patatas y Brócoli', cal: 700, p: 45, g: 35, c: 55 }, 
+                { id: 'a3', nombre: 'Ensalada de Quinoa con Pollo', cal: 480, p: 35, g: 15, c: 50 },
+                { id: 'a4', nombre: 'Pasta Integral con Bolognesa de Ternera', cal: 850, p: 55, g: 35, c: 85 },
+                { id: 'a5', nombre: 'Cazuela de Lomo de Res y Batata Dulce', cal: 1000, p: 70, g: 45, c: 90, vip: true },
+                { id: 'a6', nombre: 'Burrito de Pollo y Arroz con Guacamole', cal: 1150, p: 65, g: 50, c: 110, vip: true } // Nuevo: Máximo Calórico
+            ],
+            'Cena': [
+                { id: 'c1', nombre: 'Sopa de Verduras y Lentejas', cal: 300, p: 20, g: 5, c: 40 },
+                { id: 'c2', nombre: 'Tilapia Asada con Espárragos', cal: 400, p: 40, g: 10, c: 30 },
+                { id: 'c3', nombre: 'Bowl de Pollo y Vegetales', cal: 420, p: 35, g: 12, c: 35 },
+                { id: 'c4', nombre: 'Tacos de Pescado con Tortillas de Maíz', cal: 580, p: 40, g: 20, c: 55 },
+                { id: 'c5', nombre: 'Pavo Molido con Chili y Frijoles Negros', cal: 750, p: 60, g: 25, c: 80, vip: true },
+                { id: 'c6', nombre: 'Filete de Cerdo con Puré y Crema', cal: 900, p: 65, g: 40, c: 75, vip: true } // Nuevo: Máximo Calórico
+            ],
+            'Snack': [
+                { id: 's1', nombre: 'Yogurt Griego con Almendras', cal: 200, p: 20, g: 8, c: 15 },
+                { id: 's2', nombre: 'Batido de Proteína (Post-entreno)', cal: 150, p: 30, g: 2, c: 5 },
+                { id: 's3', nombre: 'Manzana y Mantequilla de Maní', cal: 300, p: 8, g: 20, c: 25 },
+                { id: 's4', nombre: 'Mezcla de Frutos Secos (100g)', cal: 550, p: 15, g: 40, c: 30 },
+                { id: 's5', nombre: 'Batido Recovery con Leche y Banano', cal: 850, p: 55, g: 35, c: 80, vip: true },
+                { id: 's6', nombre: 'Barra de Granola Casera y Fruta', cal: 450, p: 10, g: 25, c: 45 } // Nuevo: Moderado
+            ]
+        };
+        // Potencial Máximo Calórico (Máximos de d6, a6, c6, s5) = 950 + 1150 + 900 + 850 = 3850 Kcal
+
+        // --- FUNCIONES DE CÁLCULO DE MACROS ---
+
+        function calcularMacrosRequeridos(calorias, objetivo) {
+            let p_percent, g_percent, c_percent;
+
+            if (objetivo === 'aumento') {
+                p_percent = 0.35; 
+                g_percent = 0.25; 
+                c_percent = 0.40; 
+            } else if (objetivo === 'perdida') {
+                p_percent = 0.40; 
+                g_percent = 0.20; 
+                c_percent = 0.40; 
+            } else {
+                p_percent = 0.30; 
+                g_percent = 0.30; 
+                c_percent = 0.40; 
+            }
+
+            const p_grams = Math.round((calorias * p_percent) / 4);
+            const g_grams = Math.round((calorias * g_percent) / 9);
+            const c_grams = Math.round((calorias * c_percent) / 4);
+
+            return { p: p_grams, g: g_grams, c: c_grams };
+        }
+
+        // --- CARGA DE DATOS Y RENDERIZADO ---
+
+        function cargarDatos() {
+            const datosGuardados = localStorage.getItem('datosNutricionales');
+            const display = document.getElementById('metaCaloricaDisplay');
+            
+            if (datosGuardados) {
+                datosNutricionales = JSON.parse(datosGuardados);
+                metaCalorica = datosNutricionales.caloriasObjetivo;
+                const objetivoText = datosNutricionales.objetivo === 'aumento' ? 'Aumento de Masa' : 
+                                     datosNutricionales.objetivo === 'perdida' ? 'Pérdida de Grasa' : 
+                                     'Mantenimiento';
+
+                const macrosReq = calcularMacrosRequeridos(metaCalorica, datosNutricionales.objetivo);
+
+                display.innerHTML = `
+                    🎯 Tu meta calórica diaria para <strong>${objetivoText}</strong> es de: 
+                    <strong>${metaCalorica} Kcal</strong>.
+                    <span class="macros-requeridos">
+                        Requerimiento Aproximado: 
+                        **Proteína: ${macrosReq.p}g** | 
+                        **Grasa: ${macrosReq.g}g** | 
+                        **Carbohidrato: ${macrosReq.c}g**
+                    </span>
+                    <br>
+                    Intenta que la suma de tus platos seleccionados cubra estos valores.
+                `;
+            } else {
+                display.innerHTML = '⚠️ No se encontraron tus datos calóricos. Por favor, regresa al <a href="calcular_calorias_paso1.html">Paso 1</a>.';
+            }
+        }
+
+        function generarCatalogo() {
+            const catalogoDiv = document.getElementById('catalogoPlatos');
+            catalogoDiv.innerHTML = ''; 
+
+            for (const comida in platosDisponibles) {
+                const seccion = document.createElement('div');
+                seccion.classList.add('seccion-comida');
+                seccion.innerHTML = `<h3>${comida}</h3>`;
+                
+                platosDisponibles[comida].forEach(plato => {
+                    const item = document.createElement('div');
+                    item.classList.add('plato-item');
+                    if (plato.vip) {
+                        item.classList.add('vip');
+                    }
+                    item.dataset.id = plato.id;
+                    item.dataset.comida = comida;
+                    item.innerHTML = `
+                        <div class="nombre-plato">${plato.nombre}</div>
+                        <p><strong>${plato.cal} Kcal</strong> | P: ${plato.p}g | G: ${plato.g}g | C: ${plato.c}g</p>
+                    `;
+                    
+                    // Lógica de selección múltiple
+                    item.addEventListener('click', () => seleccionarPlato(item, plato, comida));
+                    seccion.appendChild(item);
+                });
+
+                catalogoDiv.appendChild(seccion);
+            }
+        }
+        
+        // --- FUNCIÓN CORREGIDA: Permite selección múltiple (Toggle) ---
+        function seleccionarPlato(itemElement, platoData, comida) {
+            
+            // Si la categoría no existe en el catálogo, la inicializamos como un array
+            if (!catalogoPersonal[comida]) {
+                catalogoPersonal[comida] = [];
+            }
+
+            const platoIndex = catalogoPersonal[comida].findIndex(p => p.id === platoData.id);
+
+            if (platoIndex > -1) {
+                // Deseleccionar: Remover del array y el estilo
+                itemElement.classList.remove('seleccionado');
+                catalogoPersonal[comida].splice(platoIndex, 1); 
+            } else {
+                // Seleccionar: Agregar al array y aplicar el estilo
+                itemElement.classList.add('seleccionado');
+                catalogoPersonal[comida].push(platoData);
+            }
+            
+            actualizarResumenCalorico();
+        }
+        
+        function actualizarResumenCalorico() {
+            let totalCal = 0;
+            let totalP = 0;
+            let totalG = 0;
+            let totalC = 0;
+            let platosContados = 0;
+            
+            for (const comida in catalogoPersonal) {
+                catalogoPersonal[comida].forEach(plato => {
+                    totalCal += plato.cal;
+                    totalP += plato.p;
+                    totalG += plato.g;
+                    totalC += plato.c;
+                    platosContados++;
+                });
+            }
+
+            const resumenDiv = document.getElementById('resumenCaloricoDisplay');
+            
+            // El resumen muestra la suma TOTAL de todos los platos seleccionados en el catálogo
+            resumenDiv.innerHTML = `
+                Platos en Catálogo Personal: ${platosContados} platos | Suma Total: 
+                <strong>${totalCal} Kcal</strong> | P: ${totalP}g | G: ${totalG}g | C: ${totalC}g
+            `;
+        }
+
+        // --- FUNCIÓN CORREGIDA: Verifica la existencia de al menos UN plato por comida ---
+        function manejarFinalizar() {
+            const comidasRequeridas = ['Desayuno', 'Almuerzo', 'Cena', 'Snack'];
+            let incompleto = false;
+            
+            comidasRequeridas.forEach(comida => {
+                if (!catalogoPersonal[comida] || catalogoPersonal[comida].length === 0) {
+                    incompleto = true;
+                }
+            });
+            
+            if (incompleto) {
+                alert('⚠️ Incompleto: Por favor, selecciona al menos UN plato en cada una de las cuatro categorías (Desayuno, Almuerzo, Cena, Snack) para crear tu catálogo personal.');
+                return;
+            }
+            
+            // 1. Guardar el catálogo PERSONALIZADO (Múltiples platos seleccionados por el usuario)
+            localStorage.setItem('catalogoPersonal', JSON.stringify(catalogoPersonal));
+            
+            // 2. Guardar la lista COMPLETA de platos (necesaria para la sustitución en el Paso 5)
+            localStorage.setItem('platosDisponibles', JSON.stringify(platosDisponibles));
+
+            alert('¡Catálogo Personalizado creado! Guardando información y avanzando al creador de dietas diarias.');
+            window.location.href = 'crear_dietas_paso3.html'; 
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarDatos();
+            generarCatalogo();
+            actualizarResumenCalorico(); 
+            document.getElementById('finalizarDieta').addEventListener('click', manejarFinalizar);
+        });
+    </script>
+</body>
+</html>

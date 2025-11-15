@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Personaliza Tu Rutina - Paso 1 | YOUR BEST VERSION</title>
+    <link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos CSS específicos para la maquetación de esta página
+           (idealmente irían en estilo.css, pero los añado aquí para la demostración) */
+        .contenido-rutina {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #2c2c2c;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+        .dia-entrenamiento {
+            border: 1px solid #ff004c;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            background-color: #1a1a1a;
+        }
+        .dia-entrenamiento h3 {
+            color: #ff004c;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        .dia-entrenamiento h3 input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .select-grupos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .select-grupos label {
+            background-color: #444;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .select-grupos input[type="checkbox"] {
+            display: none; /* Oculta el checkbox nativo */
+        }
+        .select-grupos input[type="checkbox"]:checked + label {
+            background-color: #ff004c;
+            font-weight: bold;
+        }
+        .grupos-contenedor {
+            display: none; /* Oculto por defecto */
+            margin-top: 10px;
+        }
+        .error-message {
+            color: yellow;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+        }
+        .boton-continuar {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #ff004c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .boton-continuar:hover {
+            background-color: #e00040;
+        }
+    </style>
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo-contenedor">
+            <img src="productos/logopestaña.png" alt="Logo de YBV" class="logo">
+        </div>
+
+        <div class="titulo-contenedor">
+            <h1>Personaliza Tu Rutina - Paso 1</h1>
+            <div class="botones-contenedor">
+                <a href="contenido_inicial.html" class="menu-boton">Inicio</a>
+                <a href="empresa.html" class="menu-boton">Empresa</a>
+                <a href="productos.html" class="menu-boton">Productos</a>
+                <a href="contacto.html" class="menu-boton">Contacto</a>
+            </div>
+        </div>
+        <hr class="linea-encima">
+    </header>
+
+    <main>
+        <div class="contenido-rutina">
+            <h2>Selecciona tus días de entrenamiento y grupos musculares </h2>
+            <p>Marca los días que deseas entrenar y selecciona un **máximo de 5 grupos musculares** para cada día de entreno.</p>
+            <form id="formRutinaSemanal">
+                <div class="dia-entrenamiento" id="dia-Lunes">
+                    <h3>
+                        <input type="checkbox" id="entrenar-Lunes" name="entrenar" value="Lunes" onclick="toggleGrupos('Lunes')">
+                        <label for="entrenar-Lunes">Lunes</label>
+                    </h3>
+                    <div class="grupos-contenedor" id="grupos-Lunes">
+                        <div class="select-grupos">
+                            <input type="checkbox" id="Lunes-Espalda" name="Lunes-grupos" value="Espalda"><label for="Lunes-Espalda">Espalda</label>
+                            <input type="checkbox" id="Lunes-Pecho" name="Lunes-grupos" value="Pecho"><label for="Lunes-Pecho">Pecho</label>
+                            <input type="checkbox" id="Lunes-Hombro" name="Lunes-grupos" value="Hombro"><label for="Lunes-Hombro">Hombro</label>
+                            <input type="checkbox" id="Lunes-Biceps" name="Lunes-grupos" value="Biceps"><label for="Lunes-Biceps">Bíceps</label>
+                            <input type="checkbox" id="Lunes-Triceps" name="Lunes-grupos" value="Triceps"><label for="Lunes-Triceps">Tríceps</label>
+                            <input type="checkbox" id="Lunes-Cuadriceps" name="Lunes-grupos" value="Cuadriceps"><label for="Lunes-Cuadriceps">Cuádriceps</label>
+                            <input type="checkbox" id="Lunes-Femorales" name="Lunes-grupos" value="Femorales"><label for="Lunes-Femorales">Femorales</label>
+                            <input type="checkbox" id="Lunes-Gluteo" name="Lunes-grupos" value="Gluteo"><label for="Lunes-Gluteo">Glúteo</label>
+                            <input type="checkbox" id="Lunes-Pantorrilla" name="Lunes-grupos" value="Pantorrilla"><label for="Lunes-Pantorrilla">Pantorrilla</label>
+                            <input type="checkbox" id="Lunes-Aductores" name="Lunes-grupos" value="Aductores"><label for="Lunes-Aductores">Aductores</label>
+                        </div>
+                        <p class="error-message" id="error-Lunes">Solo puedes seleccionar un máximo de 5 grupos musculares.</p>
+                    </div>
+                </div>
+
+                <div class="dia-entrenamiento" id="dia-Martes">
+                    <h3>
+                        <input type="checkbox" id="entrenar-Martes" name="entrenar" value="Martes" onclick="toggleGrupos('Martes')">
+                        <label for="entrenar-Martes">Martes</label>
+                    </h3>
+                    <div class="grupos-contenedor" id="grupos-Martes">
+                        <div class="select-grupos">
+                            <input type="checkbox" id="Martes-Espalda" name="Martes-grupos" value="Espalda"><label for="Martes-Espalda">Espalda</label>
+                            <input type="checkbox" id="Martes-Pecho" name="Martes-grupos" value="Pecho"><label for="Martes-Pecho">Pecho</label>
+                            <input type="checkbox" id="Martes-Hombro" name="Martes-grupos" value="Hombro"><label for="Martes-Hombro">Hombro</label>
+                            <input type="checkbox" id="Martes-Biceps" name="Martes-grupos" value="Biceps"><label for="Martes-Biceps">Bíceps</label>
+                            <input type="checkbox" id="Martes-Triceps" name="Martes-grupos" value="Triceps"><label for="Martes-Triceps">Tríceps</label>
+                            <input type="checkbox" id="Martes-Cuadriceps" name="Martes-grupos" value="Cuadriceps"><label for="Martes-Cuadriceps">Cuádriceps</label>
+                            <input type="checkbox" id="Martes-Femorales" name="Martes-grupos" value="Femorales"><label for="Martes-Femorales">Femorales</label>
+                            <input type="checkbox" id="Martes-Gluteo" name="Martes-grupos" value="Gluteo"><label for="Martes-Gluteo">Glúteo</label>
+                            <input type="checkbox" id="Martes-Pantorrilla" name="Martes-grupos" value="Pantorrilla"><label for="Martes-Pantorrilla">Pantorrilla</label>
+                            <input type="checkbox" id="Martes-Aductores" name="Martes-grupos" value="Aductores"><label for="Martes-Aductores">Aductores</label>
+                        </div>
+                        <p class="error-message" id="error-Martes">Solo puedes seleccionar un máximo de 5 grupos musculares.</p>
+                    </div>
+                </div>
+
+                <div class="dia-entrenamiento" id="dia-Miercoles">
+                    <h3>
+                        <input type="checkbox" id="entrenar-Miercoles" name="entrenar" value="Miércoles" onclick="toggleGrupos('Miercoles')">
+                        <label for="entrenar-Miercoles">Miércoles</label>
+                    </h3>
+                    <div class="grupos-contenedor" id="grupos-Miercoles">
+                        <div class="select-grupos">
+                            <input type="checkbox" id="Miercoles-Espalda" name="Miercoles-grupos" value="Espalda"><label for="Miercoles-Espalda">Espalda</label>
+                            <input type="checkbox" id="Miercoles-Pecho" name="Miercoles-grupos" value="Pecho"><label for="Miercoles-Pecho">Pecho</label>
+                            <input type="checkbox" id="Miercoles-Hombro" name="Miercoles-grupos" value="Hombro"><label for="Miercoles-Hombro">Hombro</label>
+                            <input type="checkbox" id="Miercoles-Biceps" name="Miercoles-grupos" value="Biceps"><label for="Miercoles-Biceps">Bíceps</label>
+                            <input type="checkbox" id="Miercoles-Triceps" name="Miercoles-grupos" value="Triceps"><label for="Miercoles-Triceps">Tríceps</label>
+                            <input type="checkbox" id="Miercoles-Cuadriceps" name="Miercoles-grupos" value="Cuadriceps"><label for="Miercoles-Cuadriceps">Cuádriceps</label>
+                            <input type="checkbox" id="Miercoles-Femorales" name="Miercoles-grupos" value="Femorales"><label for="Miercoles-Femorales">Femorales</label>
+                            <input type="checkbox" id="Miercoles-Gluteo" name="Miercoles-grupos" value="Gluteo"><label for="Miercoles-Gluteo">Glúteo</label>
+                            <input type="checkbox" id="Miercoles-Pantorrilla" name="Miercoles-grupos" value="Pantorrilla"><label for="Miercoles-Pantorrilla">Pantorrilla</label>
+                            <input type="checkbox" id="Miercoles-Aductores" name="Miercoles-grupos" value="Aductores"><label for="Miercoles-Aductores">Aductores</label>
+                        </div>
+                        <p class="error-message" id="error-Miercoles">Solo puedes seleccionar un máximo de 5 grupos musculares.</p>
+                    </div>
+                </div>
+                
+                <div class="dia-entrenamiento" id="dia-Jueves">
+                    <h3>
+                        <input type="checkbox" id="entrenar-Jueves" name="entrenar" value="Jueves" onclick="toggleGrupos('Jueves')">
+                        <label for="entrenar-Jueves">Jueves</label>
+                    </h3>
+                    <div class="grupos-contenedor" id="grupos-Jueves">
+                        <div class="select-grupos">
+                            <input type="checkbox" id="Jueves-Espalda" name="Jueves-grupos" value="Espalda"><label for="Jueves-Espalda">Espalda</label>
+                            <input type="checkbox" id="Jueves-Pecho" name="Jueves-grupos" value="Pecho"><label for="Jueves-Pecho">Pecho</label>
+                            <input type="checkbox" id="Jueves-Hombro" name="Jueves-grupos" value="Hombro"><label for="Jueves-Hombro">Hombro</label>
+                            <input type="checkbox" id="Jueves-Biceps" name="Jueves-grupos" value="Biceps"><label for="Jueves-Biceps">Bíceps</label>
+                            <input type="checkbox" id="Jueves-Triceps" name="Jueves-grupos" value="Triceps"><label for="Jueves-Triceps">Tríceps</label>
+                            <input type="checkbox" id="Jueves-Cuadriceps" name="Jueves-grupos" value="Cuadriceps"><label for="Jueves-Cuadriceps">Cuádriceps</label>
+                            <input type="checkbox" id="Jueves-Femorales" name="Jueves-grupos" value="Femorales"><label for="Jueves-Femorales">Femorales</label>
+                            <input type="checkbox" id="Jueves-Gluteo" name="Jueves-grupos" value="Gluteo"><label for="Jueves-Gluteo">Glúteo</label>
+                            <input type="checkbox" id="Jueves-Pantorrilla" name="Jueves-grupos" value="Pantorrilla"><label for="Jueves-Pantorrilla">Pantorrilla</label>
+                            <input type="checkbox" id="Jueves-Aductores" name="Jueves-grupos" value="Aductores"><label for="Jueves-Aductores">Aductores</label>
+                        </div>
+                        <p class="error-message" id="error-Jueves">Solo puedes seleccionar un máximo de 5 grupos musculares.</p>
+                    </div>
+                </div>
+
+                <div class="dia-entrenamiento" id="dia-Viernes">
+                    <h3>
+                        <input type="checkbox" id="entrenar-Viernes" name="entrenar" value="Viernes" onclick="toggleGrupos('Viernes')">
+                        <label for="entrenar-Viernes">Viernes</label>
+                    </h3>
+                    <div class="grupos-contenedor" id="grupos-Viernes">
+                        <div class="select-grupos">
+                            <input type="checkbox" id="Viernes-Espalda" name="Viernes-grupos" value="Espalda"><label for="Viernes-Espalda">Espalda</label>
+                            <input type="checkbox" id="Viernes-Pecho" name="Viernes-grupos" value="Pecho"><label for="Viernes-Pecho">Pecho</label>
+                            <input type="checkbox" id="Viernes-Hombro" name="Viernes-grupos" value="Hombro"><label for="Viernes-Hombro">Hombro</label>
+                            <input type="checkbox" id="Viernes-Biceps" name="Viernes-grupos" value="Biceps"><label for="Viernes-Biceps">Bíceps</label>
+                            <input type="checkbox" id="Viernes-Triceps" name="Viernes-grupos" value="Triceps"><label for="Viernes-Triceps">Tríceps</label>
+                            <input type="checkbox" id="Viernes-Cuadriceps" name="Viernes-grupos" value="Cuadriceps"><label for="Viernes-Cuadriceps">Cuádriceps</label>
+                            <input type="checkbox" id="Viernes-Femorales" name="Viernes-grupos" value="Femorales"><label for="Viernes-Femorales">Femorales</label>
+                            <input type="checkbox" id="Viernes-Gluteo" name="Viernes-grupos" value="Gluteo"><label for="Viernes-Gluteo">Glúteo</label>
+                            <input type="checkbox" id="Viernes-Pantorrilla" name="Viernes-grupos" value="Pantorrilla"><label for="Viernes-Pantorrilla">Pantorrilla</label>
+                            <input type="checkbox" id="Viernes-Aductores" name="Viernes-grupos" value="Aductores"><label for="Viernes-Aductores">Aductores</label>
+                        </div>
+                        <p class="error-message" id="error-Viernes">Solo puedes seleccionar un máximo de 5 grupos musculares.</p>
+                    </div>
+                </div>
+
+                <div class="dia-entrenamiento" id="dia-Sabado">
+                    <h3>
+                        <input type="checkbox" id="entrenar-Sabado" name="entrenar" value="Sábado" onclick="toggleGrupos('Sabado')">
+                        <label for="entrenar-Sabado">Sábado</label>
+                    </h3>
+                    <div class="grupos-contenedor" id="grupos-Sabado">
+                        <div class="select-grupos">
+                            <input type="checkbox" id="Sabado-Espalda" name="Sabado-grupos" value="Espalda"><label for="Sabado-Espalda">Espalda</label>
+                            <input type="checkbox" id="Sabado-Pecho" name="Sabado-grupos" value="Pecho"><label for="Sabado-Pecho">Pecho</label>
+                            <input type="checkbox" id="Sabado-Hombro" name="Sabado-grupos" value="Hombro"><label for="Sabado-Hombro">Hombro</label>
+                            <input type="checkbox" id="Sabado-Biceps" name="Sabado-grupos" value="Biceps"><label for="Sabado-Biceps">Bíceps</label>
+                            <input type="checkbox" id="Sabado-Triceps" name="Sabado-grupos" value="Triceps"><label for="Sabado-Triceps">Tríceps</label>
+                            <input type="checkbox" id="Sabado-Cuadriceps" name="Sabado-grupos" value="Cuadriceps"><label for="Sabado-Cuadriceps">Cuádriceps</label>
+                            <input type="checkbox" id="Sabado-Femorales" name="Sabado-grupos" value="Femorales"><label for="Sabado-Femorales">Femorales</label>
+                            <input type="checkbox" id="Sabado-Gluteo" name="Sabado-grupos" value="Gluteo"><label for="Sabado-Gluteo">Glúteo</label>
+                            <input type="checkbox" id="Sabado-Pantorrilla" name="Sabado-grupos" value="Pantorrilla"><label for="Sabado-Pantorrilla">Pantorrilla</label>
+                            <input type="checkbox" id="Sabado-Aductores" name="Sabado-grupos" value="Aductores"><label for="Sabado-Aductores">Aductores</label>
+                        </div>
+                        <p class="error-message" id="error-Sabado">Solo puedes seleccionar un máximo de 5 grupos musculares.</p>
+                    </div>
+                </div>
+
+                <div class="dia-entrenamiento" id="dia-Domingo">
+                    <h3>
+                        <input type="checkbox" id="entrenar-Domingo" name="entrenar" value="Domingo" onclick="toggleGrupos('Domingo')">
+                        <label for="entrenar-Domingo">Domingo</label>
+                    </h3>
+                    <div class="grupos-contenedor" id="grupos-Domingo">
+                        <div class="select-grupos">
+                            <input type="checkbox" id="Domingo-Espalda" name="Domingo-grupos" value="Espalda"><label for="Domingo-Espalda">Espalda</label>
+                            <input type="checkbox" id="Domingo-Pecho" name="Domingo-grupos" value="Pecho"><label for="Domingo-Pecho">Pecho</label>
+                            <input type="checkbox" id="Domingo-Hombro" name="Domingo-grupos" value="Hombro"><label for="Domingo-Hombro">Hombro</label>
+                            <input type="checkbox" id="Domingo-Biceps" name="Domingo-grupos" value="Biceps"><label for="Domingo-Biceps">Bíceps</label>
+                            <input type="checkbox" id="Domingo-Triceps" name="Domingo-grupos" value="Triceps"><label for="Domingo-Triceps">Tríceps</label>
+                            <input type="checkbox" id="Domingo-Cuadriceps" name="Domingo-grupos" value="Cuadriceps"><label for="Domingo-Cuadriceps">Cuádriceps</label>
+                            <input type="checkbox" id="Domingo-Femorales" name="Domingo-grupos" value="Femorales"><label for="Domingo-Femorales">Femorales</label>
+                            <input type="checkbox" id="Domingo-Gluteo" name="Domingo-grupos" value="Gluteo"><label for="Domingo-Gluteo">Glúteo</label>
+                            <input type="checkbox" id="Domingo-Pantorrilla" name="Domingo-grupos" value="Pantorrilla"><label for="Domingo-Pantorrilla">Pantorrilla</label>
+                            <input type="checkbox" id="Domingo-Aductores" name="Domingo-grupos" value="Aductores"><label for="Domingo-Aductores">Aductores</label>
+                        </div>
+                        <p class="error-message" id="error-Domingo">Solo puedes seleccionar un máximo de 5 grupos musculares.</p>
+                    </div>
+                </div>
+
+                <button type="submit" class="boton-continuar">Continuar y Asignar Ejercicios</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 YOUR BEST VERSION. Todos los Derechos Reservados.
+    </footer>
+
+    <script>
+        const diasSemana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+        const maxGrupos = 5;
+
+        // Función para mostrar/ocultar la selección de grupos musculares
+        function toggleGrupos(dia) {
+            const checkboxDia = document.getElementById(`entrenar-${dia}`);
+            const gruposContenedor = document.getElementById(`grupos-${dia}`);
+            const grupoCheckboxes = document.querySelectorAll(`input[name="${dia}-grupos"]`);
+            
+            if (checkboxDia.checked) {
+                gruposContenedor.style.display = 'block';
+            } else {
+                gruposContenedor.style.display = 'none';
+                // Desmarca todos los grupos si el día es de descanso
+                grupoCheckboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                // Oculta mensaje de error si estaba visible
+                document.getElementById(`error-${dia}`).style.display = 'none';
+                
+            }
+        }
+
+        // Añadir listeners para la limitación de grupos musculares
+        diasSemana.forEach(dia => {
+            const grupoCheckboxes = document.querySelectorAll(`input[name="${dia}-grupos"]`);
+            const errorMessage = document.getElementById(`error-${dia}`);
+
+            grupoCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    const checkedCount = document.querySelectorAll(`input[name="${dia}-grupos"]:checked`).length;
+
+                    if (checkedCount > maxGrupos) {
+                        checkbox.checked = false; // Desmarca el último seleccionado
+                        errorMessage.style.display = 'block';
+                    } else {
+                        errorMessage.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Manejar el envío del formulario para pasar al siguiente HTML
+        document.getElementById('formRutinaSemanal').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const rutinaSeleccionada = {};
+            let valid = true;
+
+            diasSemana.forEach(dia => {
+                const checkboxDia = document.getElementById(`entrenar-${dia}`);
+                rutinaSeleccionada[dia] = {
+                    entrena: checkboxDia.checked,
+                    grupos: []
+                };
+
+                if (checkboxDia.checked) {
+                    const gruposSeleccionados = Array.from(document.querySelectorAll(`input[name="${dia}-grupos"]:checked`)).map(cb => cb.value);
+                    rutinaSeleccionada[dia].grupos = gruposSeleccionados;
+                    
+                    // Doble verificación de que al menos un grupo ha sido seleccionado si el día está marcado
+                    if (gruposSeleccionados.length === 0) {
+                        alert(`Debes seleccionar al menos un grupo muscular para el día ${dia}.`);
+                        valid = false;
+                    }
+                }
+            });
+
+            if (valid) {
+                // Convertir el objeto de rutina a una cadena JSON
+                const rutinaJSON = JSON.stringify(rutinaSeleccionada);
+                
+                // Opción 1: Guardar en localStorage para acceder en el siguiente HTML
+                localStorage.setItem('rutinaSeleccionada', rutinaJSON);
+                
+                // Opción 2: Pasar la información mediante parámetro de URL (limitado por longitud)
+                // window.location.href = `asignar_ejercicios_paso2.html?rutina=${encodeURIComponent(rutinaJSON)}`;
+
+                // Redirigir al siguiente paso
+                window.location.href = 'asignar_ejercicios_paso2.html';
+            }
+        });
+    </script>
+</body>
+</html>

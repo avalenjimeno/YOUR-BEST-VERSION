@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css"> 
+    
+    <title>Índice de Dieta Semanal - Paso 4 | YOUR BEST VERSION</title>
+    
+    <link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos específicos para el Paso 4 (Índice) */
+        .contenido-indice {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 76, 0.5); /* Sombra roja/rosa */
+        }
+        h2 {
+            color: #ff004c;
+            border-bottom: 3px solid #ff004c;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        /* Contenedor principal de los días de dieta */
+        .contenedor-dias {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        /* Tarjeta de cada Día de Dieta */
+        .tarjeta-dia {
+            background-color: #2c2c2c;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            border-top: 5px solid #00aaff;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .tarjeta-dia:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+            border-color: #ffcc00; /* Borde amarillo al pasar el mouse */
+        }
+        .tarjeta-dia h3 {
+            color: white;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        .tarjeta-dia p {
+            font-size: 0.9em;
+            color: #ccc;
+            margin: 5px 0;
+        }
+        .tarjeta-dia .calorias-total {
+            color: #4CAF50; /* Verde */
+            font-weight: bold;
+            font-size: 1.1em;
+            border-top: 1px dashed #444;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .mensaje-error {
+            color: #ffcc00;
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 6px;
+        }
+
+        /* Botón para volver al editor */
+        .boton-volver {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 30px;
+            background-color: #00aaff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .boton-volver:hover {
+            background-color: #0088cc;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo-contenedor">
+            <img src="productos/logopestaña.png" alt="Logo de YBV" class="logo">
+        </div>
+
+        <div class="titulo-contenedor">
+            <h1>Índice de Dieta Semanal - Paso 4</h1>
+            <div class="botones-contenedor">
+                <a href="contenido_inicial.html" class="menu-boton">Inicio</a>
+                <a href="empresa.html" class="menu-boton">Empresa</a>
+                <a href="productos.html" class="menu-boton">Productos</a>
+                <a href="contacto.html" class="menu-boton">Contacto</a>
+            </div>
+        </div>
+        <hr class="linea-encima">
+    </header>
+
+    <main>
+        <div class="contenido-indice">
+            <h2>Selecciona el Día de Dieta que Deseas Revisar o Modificar</h2>
+            
+            <div id="contenedorDias" class="contenedor-dias">
+                <p class="mensaje-error">Cargando tus planes de dieta...</p>
+            </div>
+
+            <a href="crear_dietas_paso3.html" class="boton-volver">⬅️ Volver al Editor de Días de Dieta</a>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 YOUR BEST VERSION. Todos los Derechos Reservados.
+    </footer>
+
+    <script>
+        // Variables globales
+        let dietasSemanales = {};
+
+        function cargarIndice() {
+            const dietasJSON = localStorage.getItem('dietasSemanales');
+            const contenedor = document.getElementById('contenedorDias');
+            contenedor.innerHTML = '';
+            
+            if (!dietasJSON || JSON.parse(dietasJSON).length === 0) {
+                contenedor.innerHTML = `
+                    <p class="mensaje-error" style="grid-column: 1 / -1;">
+                        ⚠️ No se encontraron dietas guardadas. Por favor, crea al menos un día en el <a href="crear_dietas_paso3.html" style="color:#ffcc00;">Paso 3</a>.
+                    </p>
+                `;
+                return;
+            }
+
+            dietasSemanales = JSON.parse(dietasJSON);
+            const nombresDias = Object.keys(dietasSemanales).sort();
+
+            nombresDias.forEach((nombreDia) => {
+                const dieta = dietasSemanales[nombreDia];
+                let totalCal = 0;
+                let totalP = 0;
+                
+                // Calcular Macros Totales del Día
+                for (const comida in dieta) {
+                    totalCal += dieta[comida].cal;
+                    totalP += dieta[comida].p;
+                }
+
+                const tarjeta = document.createElement('div');
+                tarjeta.classList.add('tarjeta-dia');
+                tarjeta.dataset.dia = nombreDia; // Ej: 'Día 1'
+                
+                // Contenido de la tarjeta
+                tarjeta.innerHTML = `
+                    <h3>${nombreDia}</h3>
+                    <p>Desayuno: ${dieta.Desayuno ? dieta.Desayuno.nombre : 'N/A'}</p>
+                    <p>Almuerzo: ${dieta.Almuerzo ? dieta.Almuerzo.nombre : 'N/A'}</p>
+                    <p>Cena: ${dieta.Cena ? dieta.Cena.nombre : 'N/A'}</p>
+                    <p class="calorias-total">Total: ${totalCal} Kcal | P: ${totalP}g</p>
+                `;
+
+                // Evento: Al hacer clic, redirigir al Paso 5 y pasar el día seleccionado
+                tarjeta.addEventListener('click', () => {
+                    // Guardar el día seleccionado temporalmente
+                    localStorage.setItem('diaSeleccionado', nombreDia);
+                    window.location.href = 'visualizar_dieta_paso5.html'; 
+                });
+
+                contenedor.appendChild(tarjeta);
+            });
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', cargarIndice);
+    </script>
+</body>
+</html>

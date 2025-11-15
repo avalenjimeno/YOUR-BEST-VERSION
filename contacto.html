@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="contacto.css"> 
+    <title> Contacto | YOUR BEST VERSION</title>
+    <link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="encabezado">
+        <div class="logo-contenedor">
+            <img src="productos/logopestaña.png" alt="Logo de YBV" class="logo">
+        </div>
+        
+            <div class="botones-contenedor">
+                <a href="contenido_inicial.html" class="menu-boton">Inicio</a>
+                <a href="empresa.html" class="menu-boton">Empresa</a>
+                <a href="productos.html" class="menu-boton">Productos</a>
+                <a href="contacto.html" class="menu-boton">Contacto</a>
+            </div>
+    </header>
+    
+    <main class="contact-page">
+        
+        <section class="contact-box">
+            <h2>CONTÁCTANOS</h2>
+            <p class="contact-description">Envíanos un mensaje o consulta y te responderemos lo antes posible. ¡Tu progreso es nuestra prioridad!</p>
+            
+            <form id="contact-form" action="[COLOCAR_AQUÍ_LA_URL_DEL_SERVICIO_DE_FORMULARIOS]" method="POST">
+                
+                <input type="text" name="name" placeholder="Tu Nombre" required>
+                <input type="email" name="email" placeholder="Tu Correo Electrónico" required>
+                <input type="text" name="_subject" placeholder="Asunto" required>
+                <textarea name="message" placeholder="Escribe tu mensaje aquí..." rows="6" required></textarea>
+                
+                <button type="submit" class="contact-submit-btn">ENVIAR MENSAJE</button>
+            </form>
+            
+            <div class="contact-info">
+                <h3>O contáctanos directamente:</h3>
+                <p>Email: <a href="mailto:yourbestversion07@gmail.com">yourbestversion07@gmail.com</a></p>
+            </div>
+            
+        </section>
+        
+    </main>
+
+    <footer>
+        &copy; 2025 YOUR BEST VERSION. Todos los Derechos Reservados.
+    </footer>
+</body>
+</html>

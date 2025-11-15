@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css"> 
+    
+    <title>Ajustar Dieta - Paso 5 | YOUR BEST VERSION</title>
+    
+    <link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos específicos para el Paso 5 */
+        .contenido-dieta {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 127, 0, 0.5); /* Sombra naranja para edición */
+        }
+        h2 {
+            color: #ff004c;
+            border-bottom: 3px solid #ff004c;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Tabla de Edición */
+        .tabla-edicion {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .tabla-edicion th, .tabla-edicion td {
+            border: 1px solid #444;
+            padding: 10px;
+            text-align: center;
+        }
+        .tabla-edicion th {
+            background-color: #ff004c;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .tabla-edicion td {
+            background-color: #2a2a2a;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .tabla-edicion td:hover {
+            background-color: #3a3a3a;
+            border: 1px solid #ffcc00; /* Resaltar al pasar el mouse */
+        }
+        .plato-celda {
+            font-size: 0.9em;
+            position: relative;
+        }
+        .plato-celda span {
+            display: block;
+            font-weight: bold;
+        }
+        .total-dia {
+            font-weight: bold;
+            background-color: #3e3e3e;
+            color: #ffcc00;
+        }
+
+        /* Modal de Sustitución */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 10; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.8); 
+        }
+        .modal-contenido {
+            background-color: #1a1a1a;
+            margin: 10% auto; 
+            padding: 30px;
+            border: 3px solid #ffcc00;
+            width: 80%; 
+            max-width: 600px;
+            border-radius: 10px;
+        }
+        .modal-contenido h3 {
+            color: #00aaff;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover, .close:focus {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn-guardar {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            float: right;
+        }
+
+        /* Botón Finalizar */
+        .boton-finalizar {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 40px;
+            background-color: #00aaff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .boton-finalizar:hover {
+            background-color: #0088cc;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo-contenedor">
+            <img src="productos/logopestaña.png" alt="Logo de YBV" class="logo">
+        </div>
+
+        <div class="titulo-contenedor">
+            <h1>Ajuste de Dieta Semanal - Paso 5</h1>
+            <div class="botones-contenedor">
+                <a href="contenido_inicial.html" class="menu-boton">Inicio</a>
+                <a href="empresa.html" class="menu-boton">Empresa</a>
+                <a href="productos.html" class="menu-boton">Productos</a>
+                <a href="contacto.html" class="menu-boton">Contacto</a>
+            </div>
+        </div>
+        <hr class="linea-encima">
+    </header>
+
+    <main>
+        <div class="contenido-dieta">
+            <h2>Sustituir Platos Individuales</h2>
+            
+            <p style="color: #ffcc00;">Haz clic en cualquier plato de la tabla para sustituirlo por **cualquier otra opción** disponible en el catálogo completo. Esto te permite hacer ajustes finos.</p>
+            
+            <div id="tablaEdicionDieta">
+                <p style="text-align: center;">Cargando dieta...</p>
+            </div>
+
+            <button id="finalizarAjustes" class="boton-finalizar">Guardar Cambios y Re-analizar (Volver al Paso 4)</button>
+
+        </div>
+    </main>
+
+    <div id="modalSustitucion" class="modal">
+        <div class="modal-contenido">
+            <span class="close">&times;</span>
+            <h3 id="modalTitulo">Sustituir Plato</h3>
+            <p>Plato actual: <strong id="platoActualNombre"></strong> (<strong id="platoActualCal"></strong> Kcal)</p>
+            <hr>
+            
+            <label for="selectorSustituto" style="display: block; margin-bottom: 10px;">Selecciona el plato sustituto:</label>
+            <select id="selectorSustituto" style="width: 100%; padding: 10px;"></select>
+            
+            <p style="margin-top: 15px;">** Sugerencia: Busca un plato con un valor calórico similar si intentas cumplir una meta diaria.</p>
+            
+            <button id="guardarSustitucion" class="btn-guardar">Guardar Sustitución</button>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 YOUR BEST VERSION. Todos los Derechos Reservados.
+    </footer>
+
+    <script>
+        let dietaSemanal = {};
+        let platosDisponibles = {}; // Catálogo COMPLETO de todos los platos
+        let metaCalorica = 0;
+        const comidas = ['Desayuno', 'Almuerzo', 'Cena', 'Snack'];
+        const dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+        
+        // Variables para rastrear la celda que se está editando
+        let diaEditando = '';
+        let comidaEditando = '';
+
+
+        function cargarDatos() {
+            const dieta = localStorage.getItem('dietaSemanal');
+            const platos = localStorage.getItem('platosDisponibles');
+            const datos = localStorage.getItem('datosNutricionales');
+            
+            if (!dieta || !platos || !datos) {
+                alert('⚠️ Error: No se encontraron los datos necesarios. Regresando al Paso 1.');
+                window.location.href = 'calcular_calorias_paso1.html'; 
+                return false;
+            }
+
+            dietaSemanal = JSON.parse(dieta);
+            platosDisponibles = JSON.parse(platos);
+            metaCalorica = JSON.parse(datos).caloriasObjetivo;
+
+            generarTablaEdicion();
+            
+            return true;
+        }
+
+        function generarTablaEdicion() {
+            const contenedor = document.getElementById('tablaEdicionDieta');
+            let html = '<table class="tabla-edicion">';
+            
+            // Encabezados
+            html += '<thead><tr><th>Comida</th>';
+            dias.forEach(dia => html += `<th>${dia}</th>`);
+            html += '</tr></thead><tbody>';
+
+            // Filas de Comidas
+            comidas.forEach(comida => {
+                html += `<tr><th>${comida}</th>`;
+                dias.forEach(dia => {
+                    const plato = dietaSemanal[dia][comida];
+                    const platoNombre = plato ? plato.nombre : 'Seleccionar...';
+                    const platoCal = plato ? plato.cal : '0';
+
+                    html += `<td 
+                                class="plato-celda" 
+                                data-dia="${dia}" 
+                                data-comida="${comida}">
+                                <span>${platoNombre}</span>
+                                (${platoCal} Kcal)
+                            </td>`;
+                });
+                html += '</tr>';
+            });
+            
+            // Fila de Totales Diarios
+            html += '<tr><th style="background-color: #00aaff;">Total Diario</th>';
+            dias.forEach(dia => {
+                const totales = calcularTotalesDiarios(dia);
+                html += `<td class="total-dia">${totales.cal} Kcal</td>`;
+            });
+            html += '</tr>';
+
+            html += '</tbody></table>';
+            contenedor.innerHTML = html;
+            
+            // Asignar el evento click después de generar la tabla
+            document.querySelectorAll('.plato-celda').forEach(celda => {
+                celda.addEventListener('click', abrirModalSustitucion);
+            });
+        }
+        
+        function calcularTotalesDiarios(dia) {
+            let totalCal = 0;
+            let totalP = 0;
+            let totalG = 0;
+            let totalC = 0;
+            
+            for (const comida in dietaSemanal[dia]) {
+                const plato = dietaSemanal[dia][comida];
+                if (plato) {
+                    totalCal += plato.cal;
+                    totalP += plato.p;
+                    totalG += plato.g;
+                    totalC += plato.c;
+                }
+            }
+            return { cal: totalCal, p: totalP, g: totalG, c: totalC };
+        }
+
+        // --- LÓGICA DEL MODAL ---
+
+        function abrirModalSustitucion(event) {
+            const celda = event.currentTarget;
+            diaEditando = celda.getAttribute('data-dia');
+            comidaEditando = celda.getAttribute('data-comida');
+            
+            const platoActual = dietaSemanal[diaEditando][comidaEditando];
+            const modal = document.getElementById('modalSustitucion');
+            const selector = document.getElementById('selectorSustituto');
+
+            document.getElementById('modalTitulo').textContent = `Sustituir Plato para ${comidaEditando} del ${diaEditando}`;
+            document.getElementById('platoActualNombre').textContent = platoActual ? platoActual.nombre : 'NINGUNO';
+            document.getElementById('platoActualCal').textContent = platoActual ? platoActual.cal : '0';
+
+            // Llenar el selector con TODOS los platos de esa categoría (Catálogo COMPLETO)
+            let options = `<option value="null" data-cal="0">-- Seleccionar Nuevo Plato --</option>`;
+            
+            if (platosDisponibles[comidaEditando]) {
+                platosDisponibles[comidaEditando].forEach(plato => {
+                    const selected = platoActual && plato.id === platoActual.id ? 'selected' : '';
+                    options += `<option value="${plato.id}" data-cal="${plato.cal}" ${selected}>
+                                ${plato.nombre} (${plato.cal} Kcal | P: ${plato.p}g)
+                              </option>`;
+                });
+            }
+            selector.innerHTML = options;
+            
+            modal.style.display = "block";
+        }
+        
+        function cerrarModal() {
+            document.getElementById('modalSustitucion').style.display = "none";
+        }
+
+        function guardarSustitucion() {
+            const selector = document.getElementById('selectorSustituto');
+            const selectedOption = selector.options[selector.selectedIndex];
+            const nuevoPlatoId = selectedOption.value;
+            
+            if (nuevoPlatoId === 'null') {
+                // Si selecciona "Seleccionar Nuevo Plato", se asume que se quiere borrar/vaciar
+                dietaSemanal[diaEditando][comidaEditando] = null;
+            } else {
+                // Buscar el objeto completo del plato en el catálogo completo
+                const nuevoPlato = platosDisponibles[comidaEditando].find(p => p.id === nuevoPlatoId);
+                dietaSemanal[diaEditando][comidaEditando] = nuevoPlato;
+            }
+            
+            // 1. Actualizar la tabla en el DOM
+            generarTablaEdicion(); 
+
+            // 2. Cerrar el modal
+            cerrarModal();
+        }
+
+
+        function manejarFinalizarAjustes() {
+            // Guardar la dieta semanal modificada en localStorage
+            localStorage.setItem('dietaSemanal', JSON.stringify(dietaSemanal));
+            
+            alert('¡Ajustes Guardados! Volviendo al análisis para verificar los cambios.');
+            // Volver al Paso 4 para re-analizar la nueva dieta
+            window.location.href = 'visualizar_dieta_paso4.html'; 
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            if (cargarDatos()) {
+                // Eventos del Modal
+                document.querySelector('.close').addEventListener('click', cerrarModal);
+                document.getElementById('guardarSustitucion').addEventListener('click', guardarSustitucion);
+                
+                // Evento principal
+                document.getElementById('finalizarAjustes').addEventListener('click', manejarFinalizarAjustes);
+            }
+        });
+        
+        // Cierra el modal si el usuario hace clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('modalSustitucion');
+            if (event.target == modal) {
+                cerrarModal();
+            }
+        }
+    </script>
+</body>
+</html>

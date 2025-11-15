@@ -1,0 +1,341 @@
+/*
+====================================
+ESTILO CSS GENERAL - YOUR BEST VERSION
+(OPTIMIZADO SOLO PARA MÓDULOS DE NUTRICIÓN)
+====================================
+*/
+
+/* ---------------------------------
+1. BODY Y ESTILOS GLOBALES
+--------------------------------- */
+body {
+    opacity: 1;
+    background-color: #1f211f;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    padding: 0 0 50px 0; /* Espacio para el footer fijo */
+    position: relative;
+    scroll-behavior: smooth;
+    font-weight: 800;
+    /* Estilos de fondo */
+    background-image: url(productos/fondo_inicio.png);
+    background-attachment: fixed; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #F0F0F0; /* Asegura un color de texto claro base */
+}
+
+/* Animación de logo en el fondo */
+body::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% + 40px));
+    width: 30%;
+    height: 0;
+    padding-top: 30%;
+    background: url('productos/logoYBV.png') no-repeat center / contain;
+    opacity: 0.01;
+    z-index: -1;
+    pointer-events: none;
+    animation: fadeLogoIn 1s ease-in-out forwards 0.1s;
+}
+
+@keyframes fadeLogoIn {
+    0% { opacity: 0; }
+    100% { opacity: 0.05; }
+}
+
+/* ---------------------------------
+2. TÍTULOS Y TEXTO
+--------------------------------- */
+h1 {
+    color: #F0F0F0;
+    text-align: center;
+    font-family: "Audiowide", sans-serif;
+    font-size: 55px;
+    margin: 0;
+    padding: 5px 0;
+    /* Efecto de brillo rojo */
+    text-shadow: 
+        0 0 2px #000000,
+        0 0 7.5px #B40303,
+        0 0 15px #B40303,
+        0 0 30px rgba(180, 3, 3, 0.7);
+}
+
+h2 {
+    color: #FF6666; /* Tono rojo claro para los títulos de sección del módulo */
+    border-bottom: 2px solid #B40303;
+    padding-bottom: 5px;
+    margin-top: 30px;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+h3 {
+    color: #CCCCCC;
+    margin-top: 20px;
+}
+
+p {
+    font-weight: 500;
+    line-height: 1.7;
+    color: #CCCCCC;
+}
+
+/* ---------------------------------
+3. ENCABEZADO Y NAVEGACIÓN PRINCIPAL
+--------------------------------- */
+header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    animation: aparecer 0.5s ease-out forwards;
+    opacity: 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+.logo-contenedor {
+    position: fixed;
+    left: 30px;
+    top: 7%;
+}
+
+.logo {
+    height: 80px;
+    width: auto;
+}
+
+.botones-contenedor {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 0;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.menu-boton {
+    text-decoration: none;
+    background-color: #171718a4;
+    color: #b60303;
+    padding: 10px 10px;
+    font-size: 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    margin: 5px;
+}
+
+.menu-boton:hover {
+    background-color: #9fa3a9ac;
+    color: black;
+    text-shadow: none;
+}
+
+.linea-encima {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #000000;
+    border: none;
+    z-index: 0;
+    margin: 0;
+    top: 95px;
+}
+
+@keyframes aparecer {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------------------------
+4. CONTENIDO MODULAR (LEGIBILIDAD)
+--------------------------------- */
+
+.contenido-modulo {
+    background-color: rgba(30, 30, 30, 0.9);
+    color: #E0E0E0; 
+    padding: 40px;
+    margin: 50px auto 100px auto;
+    max-width: 1000px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(180, 3, 3, 0.7);
+    border: 1px solid rgba(180, 3, 3, 0.5);
+    opacity: 0;
+    animation: aparecer 0.5s ease-out forwards 0.2s;
+    box-sizing: border-box;
+}
+
+/* Bloque para citas o notas importantes */
+.nota-importante, .ejemplo-comida {
+    border-left: 5px solid #FF0000;
+    background-color: rgba(51, 0, 0, 0.7); 
+    padding: 15px;
+    margin: 20px 0;
+    font-weight: 600;
+    color: #F0F0F0;
+}
+
+/* ---------------------------------
+5. ESTILO DE TABLAS
+--------------------------------- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #FFFFFF;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid rgba(180, 3, 3, 0.5);
+}
+
+th {
+    background-color: #B40303;
+    color: #FFFFFF;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(180, 3, 3, 0.1); 
+}
+
+/* Estilos de Módulo 1 para clasificación de macros/micros */
+.macro, .micro, .otros {
+    font-weight: 700;
+    text-align: center !important;
+}
+.macro { background-color: rgba(0, 100, 0, 0.3); } 
+.micro { background-color: rgba(0, 0, 100, 0.3); } 
+.otros { background-color: rgba(50, 50, 50, 0.3); } 
+
+/* ---------------------------------
+6. NAVEGACIÓN ENTRE MÓDULOS (Parte inferior)
+--------------------------------- */
+
+.navegacion-modulos {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(180, 3, 3, 0.5);
+    flex-wrap: wrap;
+}
+
+.boton-anterior, .boton-siguiente, .boton-inicio {
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    transition: background-color 0.3s;
+    text-align: center;
+    margin: 5px;
+}
+
+.boton-anterior {
+    background-color: #333333;
+    color: #FFFFFF;
+}
+.boton-anterior:hover {
+    background-color: #666666;
+}
+
+.boton-siguiente {
+    background-color: #B40303;
+    color: #FFFFFF;
+}
+.boton-siguiente:hover {
+    background-color: #8D0303;
+}
+
+.boton-inicio {
+    background-color: #171718a4;
+    color: #b60303;
+    border: 1px solid #b60303;
+}
+.boton-inicio:hover {
+    background-color: #9fa3a9ac;
+    color: black;
+}
+
+/* ---------------------------------
+7. PIE DE PÁGINA (Footer Fijo)
+--------------------------------- */
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #242424;
+    color: #cfcece;
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+    font: 16px "Montserrat", sans-serif;
+    font-weight: 600;
+}
+
+/* ---------------------------------
+8. RESPONSIVE BÁSICO
+--------------------------------- */
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 30px;
+    }
+    
+    .logo-contenedor {
+        position: static;
+        padding-top: 10px;
+        text-align: center;
+    }
+
+    .logo {
+        height: 60px;
+    }
+
+    .botones-contenedor {
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 5px;
+    }
+
+    .menu-boton {
+        font-size: 18px;
+        padding: 8px;
+    }
+
+    .contenido-modulo {
+        padding: 20px;
+        margin-top: 100px;
+    }
+
+    .navegacion-modulos {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .linea-encima {
+        top: 150px;
+    }
+}

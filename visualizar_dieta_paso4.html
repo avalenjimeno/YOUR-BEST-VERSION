@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css"> 
+    
+    <title>Análisis y Resumen de Dieta - Paso 4 | YOUR BEST VERSION</title>
+    
+    <link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos generales para el paso 4 */
+        .contenido-dieta {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 0 20px rgba(0, 170, 255, 0.5); /* Sombra azul para este paso */
+        }
+        h2 {
+            color: #ff004c;
+            border-bottom: 3px solid #ff004c;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Bloques de Análisis y Resumen */
+        .analisis-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .analisis-box {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1;
+            border-top: 5px solid #00aaff;
+        }
+        .analisis-box h3 {
+            color: #ffcc00;
+            margin-top: 0;
+            border-bottom: 1px dashed #444;
+            padding-bottom: 10px;
+        }
+        .analisis-box p {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+        .alerta {
+            color: #ffcc00; /* Advertencia */
+            font-weight: bold;
+        }
+        .ok {
+            color: #4CAF50; /* OK */
+            font-weight: bold;
+        }
+
+        /* Tabla de resumen de dieta */
+        .tabla-resumen {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        .tabla-resumen th, .tabla-resumen td {
+            border: 1px solid #444;
+            padding: 10px;
+            text-align: center;
+        }
+        .tabla-resumen th {
+            background-color: #ff004c;
+            color: white;
+        }
+        .tabla-resumen td {
+            background-color: #2a2a2a;
+            font-size: 0.9em;
+        }
+        .total-dia {
+            font-weight: bold;
+            background-color: #3e3e3e;
+            color: #ffcc00;
+        }
+
+        /* Botones de acción */
+        .botones-accion {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .btn-accion {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            color: white;
+        }
+        .btn-sustituir {
+            background-color: #ff004c;
+        }
+        .btn-sustituir:hover {
+            background-color: #e00040;
+        }
+        .btn-pdf {
+            background-color: #4CAF50;
+        }
+        .btn-pdf:hover {
+            background-color: #3e8e41;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo-contenedor">
+            <img src="productos/logopestaña.png" alt="Logo de YBV" class="logo">
+        </div>
+
+        <div class="titulo-contenedor">
+            <h1>Análisis y Validación de Dieta - Paso 4</h1>
+            <div class="botones-contenedor">
+                <a href="contenido_inicial.html" class="menu-boton">Inicio</a>
+                <a href="empresa.html" class="menu-boton">Empresa</a>
+                <a href="productos.html" class="menu-boton">Productos</a>
+                <a href="contacto.html" class="menu-boton">Contacto</a>
+            </div>
+        </div>
+        <hr class="linea-encima">
+    </header>
+
+    <main>
+        <div class="contenido-dieta">
+            <h2>Resumen y Análisis Nutricional Semanal</h2>
+            
+            <p>A continuación, se presenta tu plan semanal. Analiza si el consumo de calorías diarias y el promedio de macronutrientes cumplen con tus objetivos.</p>
+            
+            <div class="analisis-container">
+                <div class="analisis-box">
+                    <h3> Análisis de Macronutrientes</h3>
+                    <div id="analisisMacros">Cargando análisis...</div>
+                </div>
+                <div class="analisis-box">
+                    <h3>🎯 Metas Nutricionales</h3>
+                    <div id="metasNutricionales">Cargando metas...</div>
+                </div>
+            </div>
+
+            <h3>Plan de Comidas Semanal</h3>
+            <div id="tablaResumenDieta">
+                <p style="text-align: center;">Cargando dieta...</p>
+            </div>
+
+            <div class="botones-accion">
+                <a href="sustituir_platos_paso5.html" class="btn-accion btn-sustituir">Ajustar/Sustituir Platos (Paso 5)</a>
+                <button id="generarPDF" class="btn-accion btn-pdf">Generar PDF de Dieta Final</button>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 YOUR BEST VERSION. Todos los Derechos Reservados.
+    </footer>
+
+    <script>
+        let dietaSemanal = {};
+        let datosNutricionales = {};
+        let metaCalorica = 0;
+        const comidas = ['Desayuno', 'Almuerzo', 'Cena', 'Snack'];
+        const dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+
+        function cargarDatos() {
+            const dieta = localStorage.getItem('dietaSemanal');
+            const datos = localStorage.getItem('datosNutricionales');
+            
+            if (!dieta || !datos) {
+                alert('⚠️ Error: No se encontraron los datos de la dieta. Regresando al Paso 3.');
+                window.location.href = 'crear_dietas_paso3.html'; 
+                return false;
+            }
+
+            dietaSemanal = JSON.parse(dieta);
+            datosNutricionales = JSON.parse(datos);
+            metaCalorica = datosNutricionales.caloriasObjetivo;
+
+            // Calcular y mostrar toda la información
+            mostrarMetasNutricionales();
+            generarTablaResumen();
+            analizarMacros();
+            
+            return true;
+        }
+        
+        // --- Cálculo de Macros Requeridos (Duplicado del Paso 2 para asegurar independencia) ---
+        function calcularMacrosRequeridos(calorias, objetivo) {
+            let p_percent, g_percent, c_percent;
+
+            if (objetivo === 'aumento') {
+                p_percent = 0.35; 
+                g_percent = 0.25; 
+                c_percent = 0.40; 
+            } else if (objetivo === 'perdida') {
+                p_percent = 0.40; 
+                g_percent = 0.20; 
+                c_percent = 0.40; 
+            } else {
+                p_percent = 0.30; 
+                g_percent = 0.30; 
+                c_percent = 0.40; 
+            }
+            
+            const p_grams = Math.round((calorias * p_percent) / 4);
+            const g_grams = Math.round((calorias * g_percent) / 9);
+            const c_grams = Math.round((calorias * c_percent) / 4);
+
+            return { p: p_grams, g: g_grams, c: c_grams };
+        }
+        
+        function mostrarMetasNutricionales() {
+            const metasDiv = document.getElementById('metasNutricionales');
+            const macrosReq = calcularMacrosRequeridos(metaCalorica, datosNutricionales.objetivo);
+            
+            metasDiv.innerHTML = `
+                <p>Meta Calórica Diaria: <span class="ok">${metaCalorica} Kcal</span></p>
+                <p>Proteína Requerida: <span class="ok">${macrosReq.p}g</span></p>
+                <p>Grasa Requerida: <span class="ok">${macrosReq.g}g</span></p>
+                <p>Carbohidrato Requerido: <span class="ok">${macrosReq.c}g</span></p>
+            `;
+        }
+
+        function generarTablaResumen() {
+            const contenedor = document.getElementById('tablaResumenDieta');
+            let html = '<table class="tabla-resumen">';
+            
+            // Encabezados
+            html += '<thead><tr><th>Comida</th>';
+            dias.forEach(dia => html += `<th>${dia}</th>`);
+            html += '</tr></thead><tbody>';
+
+            // Filas de Comidas y Platos
+            comidas.forEach(comida => {
+                html += `<tr><th>${comida}</th>`;
+                dias.forEach(dia => {
+                    const plato = dietaSemanal[dia][comida];
+                    if (plato) {
+                        html += `<td>${plato.nombre}<br>(${plato.cal} Kcal)</td>`;
+                    } else {
+                        html += `<td>- No Seleccionado -</td>`;
+                    }
+                });
+                html += '</tr>';
+            });
+            
+            // Fila de Totales Diarios
+            html += '<tr><th style="background-color: #00aaff;">Total Diario</th>';
+            dias.forEach(dia => {
+                const totales = calcularTotalesDiarios(dia);
+                let clase = totales.cal > (metaCalorica * 1.1) || totales.cal < (metaCalorica * 0.9) ? 'alerta' : 'ok';
+                html += `<td class="total-dia ${clase}">${totales.cal} Kcal</td>`;
+            });
+            html += '</tr>';
+
+            html += '</tbody></table>';
+            contenedor.innerHTML = html;
+        }
+        
+        function calcularTotalesDiarios(dia) {
+            let totalCal = 0;
+            let totalP = 0;
+            let totalG = 0;
+            let totalC = 0;
+            
+            for (const comida in dietaSemanal[dia]) {
+                const plato = dietaSemanal[dia][comida];
+                if (plato) {
+                    totalCal += plato.cal;
+                    totalP += plato.p;
+                    totalG += plato.g;
+                    totalC += plato.c;
+                }
+            }
+            return { cal: totalCal, p: totalP, g: totalG, c: totalC };
+        }
+
+        function analizarMacros() {
+            const macrosReq = calcularMacrosRequeridos(metaCalorica, datosNutricionales.objetivo);
+            let totalCalSemana = 0;
+            let totalPSemana = 0;
+            let totalGSemana = 0;
+            let totalCSemana = 0;
+            
+            dias.forEach(dia => {
+                const totales = calcularTotalesDiarios(dia);
+                totalCalSemana += totales.cal;
+                totalPSemana += totales.p;
+                totalGSemana += totales.g;
+                totalCSemana += totales.c;
+            });
+            
+            const promedioCal = Math.round(totalCalSemana / 7);
+            const promedioP = Math.round(totalPSemana / 7);
+            const promedioG = Math.round(totalGSemana / 7);
+            const promedioC = Math.round(totalCSemana / 7);
+            
+            // Función auxiliar para verificar si el promedio está cerca de la meta (10% de margen)
+            const verificarCercania = (promedio, meta) => {
+                const margen = 0.10;
+                return (promedio >= meta * (1 - margen) && promedio <= meta * (1 + margen)) ? 'ok' : 'alerta';
+            };
+
+            const analisisDiv = document.getElementById('analisisMacros');
+            analisisDiv.innerHTML = `
+                <p>Promedio Calórico Semanal: <span class="${verificarCercania(promedioCal, metaCalorica)}">${promedioCal} Kcal</span></p>
+                <p>Promedio Proteína: <span class="${verificarCercania(promedioP, macrosReq.p)}">${promedioP}g</span></p>
+                <p>Promedio Grasa: <span class="${verificarCercania(promedioG, macrosReq.g)}">${promedioG}g</span></p>
+                <p>Promedio Carbohidrato: <span class="${verificarCercania(promedioC, macrosReq.c)}">${promedioC}g</span></p>
+                <p style="margin-top: 15px;">** Margen aceptable: ±10% de la meta diaria/requerida.</p>
+            `;
+        }
+
+        function manejarGenerarPDF() {
+            // Lógica simple para simular la impresión.
+            alert('Generando PDF de la Dieta Semanal... (Esta función requiere librerías adicionales en un entorno real).');
+            window.print(); // Abre el diálogo de impresión/guardar PDF del navegador
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            if (cargarDatos()) {
+                document.getElementById('generarPDF').addEventListener('click', manejarGenerarPDF);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
+    <title>YOUR BEST VERSION</title>
+    <link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+
+        .carrusel-contenedor {
+            overflow-x: scroll;
+            display: flex;
+            scroll-snap-type: x mandatory; /* Clave para que se detenga en cada imagen */
+            border-radius: 8px;
+            -webkit-overflow-scrolling: touch; 
+        }
+        .carrusel-contenedor::-webkit-scrollbar {
+            display: none; /* Oculta la barra de desplazamiento */
+        }
+        .carrusel-slide {
+            flex: 0 0 100%; /* Cada slide ocupa el 100% del contenedor */
+            scroll-snap-align: start;
+        }
+
+        .carrusel-indicadores span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #555;
+            border-radius: 50%;
+            margin: 0 4px;
+            transition: background-color 0.3s;
+        }
+        .carrusel-indicadores span.activo {
+            background-color: #ff004c; /* Color que contrasta con el fondo oscuro */
+        }
+    </style>
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo-contenedor">
+            <img src="productos/logopestaña.png" alt="Logo de YBV" class="logo">
+        </div>
+
+        <div class="titulo-contenedor">
+            <h1>YOUR BEST VERSION</h1>
+            <div class="botones-contenedor">
+                <a href="contenido_inicial.html" class="menu-boton">Inicio</a>
+                <a href="empresa.html" class="menu-boton">Empresa</a>
+                <a href="productos.html" class="menu-boton">Productos</a>
+                <a href="contacto.html" class="menu-boton">Contacto</a>
+            </div>
+        </div>
+        <hr class="linea-encima">
+    </header>
+
+    <main>
+        <a href="ejercicios-rutinas.html" class="seccion-link">
+            <div class="seccion-inicio" id="seccion1">
+                <h2>Ejercicios y Rutinas</h2>
+                <p>Descubre ejercicios y rutinas increíbles para trabajar cada músculo.</p>
+                
+                <div class="carrusel-wrapper">
+                    <div class="carrusel-contenedor" data-carrusel-id="1">
+                        <div class="carrusel-slide"><img src="productos/Ejercicios.jpg" alt="Rutina de ejercicios 1"></div>
+                        <div class="carrusel-slide"><img src="productos/C_E2.jpg" alt="Rutina de ejercicios 2"></div>
+                        <div class="carrusel-slide"><img src="productos/C_E3.jpg" alt="Rutina de ejercicios 3"></div>
+                    </div>
+                    <div class="carrusel-indicadores" id="indicadores-1">
+                        <span class="activo"></span><span></span><span></span>
+                    </div>
+                </div>
+                </div>
+        </a>
+
+        <a href="alimentacion-nutricion.html" class="seccion-link">
+            <div class="seccion-inicio" id="seccion2">
+                <h2>Alimentación y Nutrición</h2>
+                <p>Cambia tu forma de alimentarte y conoce las ventajas de una correcta nutrición.</p>
+                
+                <div class="carrusel-wrapper">
+                    <div class="carrusel-contenedor" data-carrusel-id="2">
+                        <div class="carrusel-slide"><img src="productos/DietaBalanceada.jpg" alt="Dieta balanceada 1"></div>
+                        <div class="carrusel-slide"><img src="productos/C_A2.jpg" alt="Dieta balanceada 2"></div>
+                        <div class="carrusel-slide"><img src="productos/C_A3.jpg" alt="Dieta balanceada 3"></div>
+                    </div>
+                    <div class="carrusel-indicadores" id="indicadores-2">
+                        <span class="activo"></span><span></span><span></span>
+                    </div>
+                </div>
+                </div>
+        </a>
+
+        <a href="rutina_dieta.html" class="seccion-link">
+            <div class="seccion-inicio" id="seccion3">
+                <h2>Rutinas y Dietas Personalizables</h2>
+                <p>A través de conocerte a ti, podemos crearte una rutina y dieta adaptada a ti.</p>
+                
+                <div class="carrusel-wrapper">
+                    <div class="carrusel-contenedor" data-carrusel-id="3">
+                        <div class="carrusel-slide"><img src="productos/Personalizado.jpg" alt="Entrenamiento personalizado 1"></div>
+                        <div class="carrusel-slide"><img src="productos/C_P2.jpg" alt="Entrenamiento personalizado 2"></div>
+                        <div class="carrusel-slide"><img src="productos/C_P3.jpg" alt="Entrenamiento personalizado 3"></div>
+                    </div>
+                    <div class="carrusel-indicadores" id="indicadores-3">
+                        <span class="activo"></span><span></span><span></span>
+                    </div>
+                </div>
+                </div>
+        </a>
+
+    </main>
+
+    <footer>
+        &copy; 2025 YOUR BEST VERSION. Todos los Derechos Reservados.
+    </footer>
+
+    <script>
+        // *** JAVASCRIPT MÍNIMO PARA EL MOVIMIENTO AUTOMÁTICO ***
+
+        const carruseles = document.querySelectorAll('.carrusel-contenedor');
+
+        carruseles.forEach(carrusel => {
+            let slideIndex = 0;
+            const slides = carrusel.querySelectorAll('.carrusel-slide');
+            const carruselId = carrusel.getAttribute('data-carrusel-id');
+            const indicadores = document.getElementById(`indicadores-${carruselId}`).children;
+            const totalSlides = slides.length;
+            
+            // Función para actualizar la posición del carrusel y los indicadores
+            const actualizarCarrusel = () => {
+                if (totalSlides === 0) return;
+                
+                const anchoSlide = slides[0].clientWidth;
+                // Mueve el scroll horizontalmente
+                carrusel.scrollLeft = slideIndex * anchoSlide;
+
+                // Actualiza los puntos de navegación
+                Array.from(indicadores).forEach((indicador, index) => {
+                    indicador.classList.remove('activo');
+                    if (index === slideIndex) {
+                        indicador.classList.add('activo');
+                    }
+                });
+            };
+
+            // Función principal para el movimiento automático
+            const moverAutomatico = () => {
+                // Avanza al siguiente slide (vuelve a 0 si llega al final)
+                slideIndex = (slideIndex + 1) % totalSlides;
+                actualizarCarrusel();
+            };
+
+            // Iniciar el cambio automático (cada 5 segundos)
+            let intervalo = setInterval(moverAutomatico, 3000);
+
+            // Hacer que la función de actualización corra al redimensionar la ventana
+            window.addEventListener('resize', actualizarCarrusel);
+
+            // Inicialización (para asegurar que los indicadores estén correctos al inicio)
+            actualizarCarrusel();
+        });
+    </script>
+</body>
+</html>

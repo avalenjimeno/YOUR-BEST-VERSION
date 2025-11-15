@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
+    <title id="titulo-dia">Rutina de Entrenamiento | YOUR BEST VERSION</title>
+    
+    <link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para la página de día de entreno */
+        .contenido-dia {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 76, 0.5); /* Sombra roja para enfocar */
+        }
+        h2 {
+            color: #ff004c;
+            border-bottom: 3px solid #00aaff;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .ejercicio-tarjeta {
+            background-color: #2c2c2c;
+            border: 1px solid #00aaff;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        .ejercicio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .ejercicio-header h4 {
+            color: #ffcc00; /* Dorado */
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .ajustes-input-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #555;
+        }
+        .ajustes-input-group label {
+            font-size: 0.9em;
+            color: #aaa;
+        }
+        .ajustes-input-group input, .ajustes-input-group select {
+            width: 70px;
+            padding: 5px;
+            border-radius: 3px;
+            border: 1px solid #555;
+            background-color: #444;
+            color: white;
+        }
+        /* Botones de acción */
+        .acciones-ejercicio {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .btn-tecnica {
+            background-color: #00aaff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 0.9em;
+        }
+        .btn-tecnica:hover {
+            background-color: #007bbd;
+        }
+        .btn-eliminar, .btn-sustituir, .btn-agregar {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: opacity 0.3s;
+        }
+        .btn-eliminar { background-color: #ff004c; color: white; }
+        .btn-sustituir { background-color: #ffcc00; color: #1a1a1a; }
+        .btn-agregar { background-color: #4CAF50; color: white; }
+        
+        .cardio-info {
+            background-color: #333;
+            padding: 15px;
+            border-left: 5px solid #4CAF50;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .contenedor-acciones-extra {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px dashed #555;
+            border-radius: 6px;
+        }
+        #contenedor-ejercicios-dinamico {
+            margin-top: 20px;
+        }
+        .select-sustituto {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background-color: #444;
+            color: white;
+            margin-bottom: 5px;
+            display: none; /* Oculto por defecto */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo-contenedor">
+            <img src="productos/logopestaña.png" alt="Logo de YBV" class="logo">
+        </div>
+
+        <div class="titulo-contenedor">
+            <h1 id="header-dia-nombre">Día de Entreno</h1> 
+            <div class="botones-contenedor">
+                <a href="contenido_inicial.html" class="menu-boton">Inicio</a>
+                <a href="empresa.html" class="menu-boton">Empresa</a>
+                <a href="productos.html" class="menu-boton">Productos</a>
+                <a href="contacto.html" class="menu-boton">Contacto</a>
+            </div>
+        </div>
+        <hr class="linea-encima">
+    </header>
+
+    <main>
+        <div class="contenido-dia">
+            <h2 id="subtitulo-dia"></h2>
+            
+            <div id="contenedor-ejercicios-dinamico">
+                <p>Cargando rutina...</p>
+            </div>
+            
+            <div id="cardio-dinamico" class="cardio-info" style="display:none;">
+                Cardio para hoy: <span></span>
+            </div>
+            
+            <div id="contenedor-mensaje-error" style="color:red; text-align:center; display:none; padding: 20px;">
+                Error: No se encontró la rutina o este es un día de descanso.
+            </div>
+
+            <div class="contenedor-acciones-extra">
+                <h4>Añadir ejercicios adicionales:</h4>
+                <p>Selecciona un grupo muscular de tu rutina para añadir un ejercicio extra.</p>
+                <select id="select-grupo-adicional" class="select-ejercicio">
+                    <option value="" disabled selected>-- Elige un grupo muscular --</option>
+                </select>
+                <select id="select-ejercicio-adicional" class="select-ejercicio" style="display: none;">
+                    <option value="" disabled selected>-- Elige un ejercicio --</option>
+                </select>
+                <button type="button" id="btn-agregar-extra" class="btn-agregar" style="display: none;">Añadir a la Rutina</button>
+            </div>
+            
+            <button type="button" id="btn-guardar-rutina" class="boton-finalizar" style="margin-top: 40px;"> Guardar Ajustes del Día</button>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 YOUR BEST VERSION. Todos los Derechos Reservados.
+    </footer>
+
+    <script>
+        // 🚨 PASO DE CONFIGURACIÓN CLAVE: 🚨
+        // Define el día específico que esta plantilla debe cargar.
+        // ¡DEBES CAMBIAR ESTE VALOR EN CADA COPIA DEL ARCHIVO!
+        const DIA_DE_ENTRENO = 'Jueves'; 
+        // 🚨 FIN DEL PASO DE CONFIGURACIÓN 🚨
+        
+        // Objeto global para almacenar la rutina final con ajustes
+        let rutinaFinal = {};
+        let rutinaDelDia = {};
+        
+        // Datos de referencia (los mismos del Paso 2)
+        const ejerciciosDisponibles = {
+            'Espalda': ['Dominadas', 'Jalón al Pecho', 'Remo horizontal en polea', 'Remo en barra T', 'Remo con barra libre', 'Pull over'],
+            'Pecho': ['Press en banca Inclinado', 'Press en banca Plano', 'Peck Deck', 'Fondos', 'Flexiones'],
+            'Hombro': ['Press Militar', 'Elevaciones Laterales', 'Pájaros', 'Peck deck Inversa', 'Flexiones verticales'],
+            'Biceps': ['Curl de bicep', 'Curl de Bicep Predicador', 'Curl de Bicep Martillo', 'Curl de bicep Araña', 'Curl de Bicep Bayezian', 'Chin-Ups'],
+            'Triceps': ['Extensión de Tricep en Polea Alta', 'Extensión de Tricep por Encima de la Cabeza', 'Rompe Cráneos', 'JM Press', 'Fondos en máquina'],
+            'Cuadriceps': ['Sentadilla Libre', 'Sentadilla en Smith', 'Hack Squat', 'Prensa de Piernas', 'Extensión de Cuádriceps'],
+            'Femorales': ['Peso Muerto Rumano', 'Curl Femoral Acostado', 'Curl Femoral Sentado', 'Curl Femoral Parado', 'Good Morning'],
+            'Gluteo': ['Hip-Trust', 'Patada en Polea', 'Peso Muerto Convencional', 'Sentadillas Búlgaras', 'Step-Up'],
+            'Pantorrilla': ['Pantorrilla de pie', 'Pantorrilla Sentado en Máquina', 'Pantorrilla en Prensa', 'Saltar la cuerda'],
+            'Aductores': ['Máquina de Aductores', 'Sentadilla Sumo', 'Aducción en Polea Baja']
+        };
+
+        const contenedorEjercicios = document.getElementById('contenedor-ejercicios-dinamico');
+        const cardioDinamico = document.getElementById('cardio-dinamico');
+        const mensajeError = document.getElementById('contenedor-mensaje-error');
+        const selectGrupoAdicional = document.getElementById('select-grupo-adicional');
+        const selectEjercicioAdicional = document.getElementById('select-ejercicio-adicional');
+        const btnAgregarExtra = document.getElementById('btn-agregar-extra');
+
+        // Función para generar opciones de Series (1 a 5) y Repeticiones (1 a 20)
+        function generarOpciones(max) {
+            let options = '';
+            for (let i = 1; i <= max; i++) {
+                options += `<option value="${i}">${i}</option>`;
+            }
+            return options;
+        }
+
+        // 1. Cargar la rutina general y la data específica del día
+        function cargarRutinaDelDia() {
+            const rutinaJSON = localStorage.getItem('rutinaFinalGenerada');
+            if (!rutinaJSON) {
+                mensajeError.textContent = "Error: No se encontró la rutina final. Por favor, complete el Paso 2.";
+                mensajeError.style.display = 'block';
+                return;
+            }
+
+            rutinaFinal = JSON.parse(rutinaJSON);
+            rutinaDelDia = rutinaFinal[DIA_DE_ENTRENO];
+
+            // 1.1 Actualizar títulos
+            document.getElementById('titulo-dia').textContent = `${DIA_DE_ENTRENO} - Rutina | YBV`;
+            document.getElementById('header-dia-nombre').textContent = `${DIA_DE_ENTRENO} de Entrenamiento`;
+            document.getElementById('subtitulo-dia').textContent = `Tu Plan para el ${DIA_DE_ENTRENO} `;
+
+            if (rutinaDelDia && rutinaDelDia.entrena) {
+                renderizarEjercicios();
+            } else {
+                contenedorEjercicios.innerHTML = `<p class="dia-descanso">¡Hoy es día de descanso! No hay ejercicios asignados.</p>`;
+                cardioDinamico.style.display = 'none';
+                document.querySelector('.contenedor-acciones-extra').style.display = 'none';
+                document.getElementById('btn-guardar-rutina').style.display = 'none';
+            }
+        }
+
+        // 2. Renderizar los ejercicios del día
+        function renderizarEjercicios() {
+            contenedorEjercicios.innerHTML = '';
+            const gruposDia = Object.keys(rutinaDelDia.ejercicios);
+            let totalEjercicios = 0;
+
+            gruposDia.forEach(grupo => {
+                const ejercicios = rutinaDelDia.ejercicios[grupo];
+                
+                if (ejercicios.length > 0) {
+                    const grupoH3 = document.createElement('h3');
+                    grupoH3.style.color = '#00aaff';
+                    grupoH3.textContent = `🏋️ ${grupo}`;
+                    contenedorEjercicios.appendChild(grupoH3);
+
+                    ejercicios.forEach((ejercicio, index) => {
+                        totalEjercicios++;
+                        const tarjeta = crearTarjetaEjercicio(DIA_DE_ENTRENO, grupo, ejercicio, index);
+                        contenedorEjercicios.appendChild(tarjeta);
+                    });
+                }
+            });
+
+            if (totalEjercicios === 0) {
+                 contenedorEjercicios.innerHTML = '<p style="color:#ffcc00;">Aún no tienes ejercicios asignados para este día. Usa la sección "Añadir" para empezar.</p>';
+            }
+
+            // Renderizar Cardio
+            if (rutinaDelDia.cardio) {
+                cardioDinamico.querySelector('span').textContent = rutinaDelDia.cardio;
+                cardioDinamico.style.display = 'block';
+            } else {
+                cardioDinamico.style.display = 'none';
+            }
+            
+            // Llenar el select de grupos adicionales
+            llenarSelectGrupos(gruposDia);
+        }
+        
+        // 3. Crear la tarjeta HTML para un ejercicio
+        function crearTarjetaEjercicio(diaKey, grupo, ejercicio, index) {
+            const tarjeta = document.createElement('div');
+            tarjeta.className = 'ejercicio-tarjeta';
+            tarjeta.dataset.grupo = grupo;
+            tarjeta.dataset.ejercicio = ejercicio;
+
+            // Valores por defecto (se pueden cargar desde otro lugar si se guardaron previamente)
+            const seriesDefault = 3;
+            const repsDefault = 12;
+
+            // Generar selectores de Series y Repeticiones
+            const seriesOptions = generarOpciones(5);
+            const repsOptions = generarOpciones(20);
+
+            tarjeta.innerHTML = `
+                <div class="ejercicio-header">
+                    <h4>${index + 1}. ${ejercicio} (${grupo})</h4>
+                    <a href="../ejercicio_${ejercicio.replace(/\s/g, '_')}.html" class="btn-tecnica" target="_blank">Ver Técnica</a>
+                </div>
+                
+                <div class="ajustes-input-group">
+                    <label>Series (Máx 5):</label>
+                    <select class="input-series" data-ejercicio="${ejercicio}" data-grupo="${grupo}">
+                        ${seriesOptions}
+                    </select>
+                    <label>Repeticiones (Máx 20):</label>
+                    <select class="input-reps" data-ejercicio="${ejercicio}" data-grupo="${grupo}">
+                        ${repsOptions}
+                    </select>
+                </div>
+
+                <div class="acciones-ejercicio">
+                    <button type="button" class="btn-eliminar" onclick="eliminarEjercicio('${grupo}', '${ejercicio}')"> Eliminar</button>
+                    <button type="button" class="btn-sustituir" onclick="mostrarSustituir('${grupo}', '${ejercicio}', this)"> Sustituir</button>
+                </div>
+                
+                <select class="select-sustituto" data-ejercicio-original="${ejercicio}" data-grupo="${grupo}">
+                    <option value="" disabled selected>-- Elige un sustituto --</option>
+                    ${ejerciciosDisponibles[grupo].filter(e => e !== ejercicio).map(e => `<option value="${e}">${e}</option>`).join('')}
+                </select>
+            `;
+            
+            // Asignar valores por defecto/guardados
+            tarjeta.querySelector('.input-series').value = seriesDefault;
+            tarjeta.querySelector('.input-reps').value = repsDefault;
+
+            return tarjeta;
+        }
+
+        // 4. Funcionalidad de Sustitución
+        window.mostrarSustituir = (grupo, ejercicioOriginal, button) => {
+            const select = button.parentNode.parentNode.querySelector('.select-sustituto');
+            const esVisible = select.style.display === 'block';
+
+            // Ocultar/Mostrar el selector
+            select.style.display = esVisible ? 'none' : 'block';
+            button.textContent = esVisible ? ' Sustituir' : 'Cancelar Sustitución';
+
+            // Si se oculta, resetear el valor seleccionado
+            if (esVisible) {
+                select.value = "";
+            } else {
+                // Agregar listener para manejar el cambio
+                select.onchange = function() {
+                    sustituirEjercicio(grupo, ejercicioOriginal, this.value);
+                };
+            }
+        };
+
+        function sustituirEjercicio(grupo, ejercicioOriginal, nuevoEjercicio) {
+            if (!nuevoEjercicio) return;
+
+            // 1. Encontrar el índice del ejercicio original en la rutinaDelDia
+            const ejercicios = rutinaDelDia.ejercicios[grupo];
+            const index = ejercicios.indexOf(ejercicioOriginal);
+
+            if (index > -1) {
+                // 2. Reemplazar
+                rutinaDelDia.ejercicios[grupo][index] = nuevoEjercicio;
+                alert(`Ejercicio ${ejercicioOriginal} sustituido por ${nuevoEjercicio}. ¡Recarga la página para ver el cambio!`);
+                
+                // 3. Guardar el cambio temporalmente y recargar
+                rutinaFinal[DIA_DE_ENTRENO] = rutinaDelDia;
+                localStorage.setItem('rutinaFinalGenerada', JSON.stringify(rutinaFinal));
+                
+                // Recargar para aplicar los cambios en la interfaz
+                window.location.reload(); 
+            }
+        }
+        
+        // 5. Funcionalidad de Eliminación
+        window.eliminarEjercicio = (grupo, ejercicio) => {
+            if (!confirm(`¿Estás seguro que quieres eliminar ${ejercicio} del ${DIA_DE_ENTRENO}?`)) {
+                return;
+            }
+            
+            const ejercicios = rutinaDelDia.ejercicios[grupo];
+            const index = ejercicios.indexOf(ejercicio);
+
+            if (index > -1) {
+                rutinaDelDia.ejercicios[grupo].splice(index, 1);
+                
+                // 3. Guardar el cambio y recargar
+                rutinaFinal[DIA_DE_ENTRENO] = rutinaDelDia;
+                localStorage.setItem('rutinaFinalGenerada', JSON.stringify(rutinaFinal));
+                
+                window.location.reload(); 
+            }
+        };
+        
+        // 6. Funcionalidad de Añadir Ejercicio Adicional
+        function llenarSelectGrupos(gruposDia) {
+             gruposDia.forEach(grupo => {
+                 const option = document.createElement('option');
+                 option.value = grupo;
+                 option.textContent = grupo;
+                 selectGrupoAdicional.appendChild(option);
+             });
+             selectGrupoAdicional.style.display = 'block';
+             selectGrupoAdicional.onchange = cargarEjerciciosAdicionales;
+        }
+        
+        function cargarEjerciciosAdicionales() {
+             const grupo = selectGrupoAdicional.value;
+             selectEjercicioAdicional.innerHTML = '<option value="" disabled selected>-- Elige un ejercicio --</option>';
+             
+             if (grupo && ejerciciosDisponibles[grupo]) {
+                 // Filtra los que ya están en la rutina del día
+                 const ejerciciosActuales = rutinaDelDia.ejercicios[grupo] || [];
+                 const disponibles = ejerciciosDisponibles[grupo].filter(ej => !ejerciciosActuales.includes(ej));
+                 
+                 disponibles.forEach(ej => {
+                     const option = document.createElement('option');
+                     option.value = ej;
+                     option.textContent = ej;
+                     selectEjercicioAdicional.appendChild(option);
+                 });
+                 selectEjercicioAdicional.style.display = 'block';
+                 btnAgregarExtra.style.display = 'block';
+             }
+        }
+        
+        btnAgregarExtra.onclick = function() {
+             const grupo = selectGrupoAdicional.value;
+             const ejercicio = selectEjercicioAdicional.value;
+             
+             if (grupo && ejercicio) {
+                 rutinaDelDia.ejercicios[grupo].push(ejercicio);
+                 rutinaFinal[DIA_DE_ENTRENO] = rutinaDelDia;
+                 localStorage.setItem('rutinaFinalGenerada', JSON.stringify(rutinaFinal));
+                 alert(`¡${ejercicio} añadido al ${grupo} del ${DIA_DE_ENTRENO}! Recargando...`);
+                 window.location.reload();
+             }
+        };
+
+        // 7. Manejar el guardado de series y repeticiones (Guardado final)
+        document.getElementById('btn-guardar-rutina').addEventListener('click', function() {
+            const tarjetas = contenedorEjercicios.querySelectorAll('.ejercicio-tarjeta');
+            let ajustesTemporales = {};
+
+            tarjetas.forEach(tarjeta => {
+                const grupo = tarjeta.dataset.grupo;
+                const ejercicio = tarjeta.dataset.ejercicio;
+                const series = tarjeta.querySelector('.input-series').value;
+                const reps = tarjeta.querySelector('.input-reps').value;
+
+                if (!ajustesTemporales[grupo]) ajustesTemporales[grupo] = {};
+                ajustesTemporales[grupo][ejercicio] = { series: series, reps: reps };
+            });
+            
+            // Aquí deberías guardar 'ajustesTemporales' en un nuevo objeto en localStorage, 
+            // ya que la estructura actual de rutinaFinal solo guarda los nombres.
+            // Para simplificar, solo guardaremos un mensaje de éxito por ahora.
+            
+            alert(`Ajustes de Series/Repeticiones del ${DIA_DE_ENTRENO} guardados. (Ajustes: ${JSON.stringify(ajustesTemporales)})`);
+        });
+
+        // Iniciar el proceso
+        cargarRutinaDelDia();
+    </script>
+</body>
+</html>

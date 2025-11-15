@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css"> 
+    
+    <title>Crea Tu Dieta Semanal - Paso 3 | YOUR BEST VERSION</title>
+    
+    <link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos generales para el paso 3 */
+        .contenido-dieta {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 76, 0.5); /* Sombra roja/rosa para este paso */
+        }
+        h2 {
+            color: #ff004c;
+            border-bottom: 3px solid #ff004c;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Tabla de la dieta */
+        .tabla-dieta {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .tabla-dieta th, .tabla-dieta td {
+            border: 1px solid #444;
+            padding: 10px;
+            text-align: center;
+        }
+        .tabla-dieta th {
+            background-color: #ff004c;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .tabla-dieta td {
+            background-color: #2a2a2a;
+        }
+
+        /* Selectores de Plato */
+        .selector-plato {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background-color: #333;
+            color: white;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+        
+        /* Contenedor de Resumen Diario */
+        .resumen-diario {
+            font-size: 0.8em;
+            margin-top: 5px;
+            font-weight: bold;
+            color: #ffcc00; /* Amarillo para resaltar */
+        }
+        .resumen-diario.alcanzado {
+            color: #4CAF50; /* Verde si se acerca a la meta */
+        }
+
+        /* Botón Finalizar */
+        .boton-finalizar {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 40px;
+            background-color: #ff004c; /* Azul para finalizar este paso */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .boton-finalizar:hover {
+            background-color: #ff004c;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo-contenedor">
+            <img src="productos/logopestaña.png" alt="Logo de YBV" class="logo">
+        </div>
+
+        <div class="titulo-contenedor">
+            <h1>Crea Tu Dieta Semanal - Paso 3</h1>
+            <div class="botones-contenedor">
+                <a href="contenido_inicial.html" class="menu-boton">Inicio</a>
+                <a href="empresa.html" class="menu-boton">Empresa</a>
+                <a href="productos.html" class="menu-boton">Productos</a>
+                <a href="contacto.html" class="menu-boton">Contacto</a>
+            </div>
+        </div>
+        <hr class="linea-encima">
+    </header>
+
+    <main>
+        <div class="contenido-dieta">
+            <h2>Menú de 7 Días</h2>
+            <p>Selecciona un plato de tu catálogo personal para cada comida de la semana. Intenta mantener tus calorías diarias cerca de tu meta.</p>
+            
+            <div id="contenedorDieta">
+                </div>
+            
+            <button id="finalizarMenu" class="boton-finalizar">Guardar Menú Semanal y Ver Resumen</button>
+
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 YOUR BEST VERSION. Todos los Derechos Reservados.
+    </footer>
+
+    <script>
+        let catalogoPersonal = {}; // Platos seleccionados por el usuario
+        let metaCalorica = 0; // Meta calórica diaria
+        const comidas = ['Desayuno', 'Almuerzo', 'Cena', 'Snack'];
+        const dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+        const dietaSemanal = {}; // Estructura final de la dieta a guardar: {Lunes: {Desayuno: {plato}, Almuerzo: {...}}}
+
+        function cargarDatosIniciales() {
+            const datosPersonal = localStorage.getItem('catalogoPersonal');
+            const datosNutricionales = localStorage.getItem('datosNutricionales');
+            
+            if (!datosPersonal || !datosNutricionales) {
+                alert('⚠️ Error: Debes completar el Paso 1 y Paso 2 primero.');
+                window.location.href = 'calcular_calorias_paso1.html'; 
+                return false;
+            }
+
+            catalogoPersonal = JSON.parse(datosPersonal);
+            metaCalorica = JSON.parse(datosNutricionales).caloriasObjetivo;
+            return true;
+        }
+
+        function generarTablaDieta() {
+            const contenedor = document.getElementById('contenedorDieta');
+            let html = '<table class="tabla-dieta">';
+            
+            // Fila de encabezados (Días)
+            html += '<thead><tr><th>Comida</th>';
+            dias.forEach(dia => {
+                html += `<th>${dia}</th>`;
+                // Inicializar la estructura de la dieta
+                dietaSemanal[dia] = {};
+            });
+            html += '</tr></thead>';
+
+            // Cuerpo de la tabla (Comidas)
+            html += '<tbody>';
+            comidas.forEach(comida => {
+                html += `<tr><th>${comida}</th>`;
+                
+                dias.forEach(dia => {
+                    // Inicializar el plato en el selector por defecto (primer plato disponible)
+                    const primerPlato = catalogoPersonal[comida] && catalogoPersonal[comida].length > 0 ? catalogoPersonal[comida][0] : null;
+                    dietaSemanal[dia][comida] = primerPlato;
+                    
+                    html += `<td>${generarSelectorPlato(dia, comida, primerPlato)}</td>`;
+                });
+                html += '</tr>';
+            });
+            
+            // Fila de resumen diario de calorías (Calorías Totales)
+            html += '<tr><th>Total Kcal</th>';
+            dias.forEach(dia => {
+                html += `<td id="resumen-${dia}" class="resumen-diario">Calculando...</td>`;
+            });
+            html += '</tr>';
+
+            html += '</tbody></table>';
+            contenedor.innerHTML = html;
+        }
+
+        function generarSelectorPlato(dia, comida, platoInicial) {
+            let options = '';
+            
+            // 1. Agregar la opción predeterminada "Seleccionar..."
+            options += `<option value="null" data-cal="0" data-p="0" data-g="0" data-c="0">-- Seleccionar Plato --</option>`;
+
+            // 2. Llenar con los platos del catálogo personal para esta comida
+            if (catalogoPersonal[comida]) {
+                catalogoPersonal[comida].forEach(plato => {
+                    const selected = platoInicial && plato.id === platoInicial.id ? 'selected' : '';
+                    options += `<option value="${plato.id}" data-cal="${plato.cal}" data-p="${plato.p}" data-g="${plato.g}" data-c="${plato.c}" ${selected}>
+                                ${plato.nombre} (${plato.cal} Kcal)
+                              </option>`;
+                });
+            }
+            
+            // 3. Crear el selector
+            return `<select 
+                        class="selector-plato" 
+                        data-dia="${dia}" 
+                        data-comida="${comida}" 
+                        onchange="actualizarDieta(this)">
+                        ${options}
+                    </select>`;
+        }
+        
+        function actualizarDieta(selector) {
+            const dia = selector.getAttribute('data-dia');
+            const comida = selector.getAttribute('data-comida');
+            const selectedOption = selector.options[selector.selectedIndex];
+            
+            if (selectedOption.value === 'null') {
+                dietaSemanal[dia][comida] = null;
+            } else {
+                // Encontrar el plato completo en el catálogo personal para guardar todos sus datos
+                const platoSeleccionado = catalogoPersonal[comida].find(p => p.id === selectedOption.value);
+                dietaSemanal[dia][comida] = platoSeleccionado;
+            }
+            
+            calcularResumenDiario(dia);
+        }
+
+        function calcularResumenDiario(dia) {
+            let totalCal = 0;
+            let totalP = 0;
+            let totalG = 0;
+            let totalC = 0;
+            
+            for (const comida in dietaSemanal[dia]) {
+                const plato = dietaSemanal[dia][comida];
+                if (plato) {
+                    totalCal += plato.cal;
+                    totalP += plato.p;
+                    totalG += plato.g;
+                    totalC += plato.c;
+                }
+            }
+            
+            const resumenDiv = document.getElementById(`resumen-${dia}`);
+            resumenDiv.innerHTML = `
+                ${totalCal} Kcal | P: ${totalP}g | G: ${totalG}g | C: ${totalC}g
+            `;
+            
+            // Colorear el resumen si está cerca de la meta
+            const porcentaje = Math.abs(totalCal - metaCalorica) / metaCalorica;
+            if (totalCal > 0 && porcentaje < 0.15) { // 15% de margen
+                resumenDiv.classList.add('alcanzado');
+            } else {
+                resumenDiv.classList.remove('alcanzado');
+            }
+        }
+        
+        function inicializarResumenes() {
+             dias.forEach(dia => {
+                calcularResumenDiario(dia);
+             });
+        }
+
+
+        function manejarFinalizarMenu() {
+            // Validación final: Asegurar que todos los campos tienen un plato seleccionado
+            let incompleto = false;
+            dias.forEach(dia => {
+                comidas.forEach(comida => {
+                    if (!dietaSemanal[dia][comida]) {
+                        incompleto = true;
+                    }
+                });
+            });
+            
+            if (incompleto) {
+                alert('⚠️ Por favor, selecciona un plato para CADA comida en CADA uno de los 7 días antes de finalizar.');
+                return;
+            }
+            
+            // Guardar la dieta semanal final en localStorage
+            localStorage.setItem('dietaSemanal', JSON.stringify(dietaSemanal));
+            
+            alert('¡Menú Semanal Guardado! Avanzando al resumen y análisis.');
+            window.location.href = 'visualizar_dieta_paso4.html'; 
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            if (cargarDatosIniciales()) {
+                generarTablaDieta();
+                inicializarResumenes();
+                document.getElementById('finalizarMenu').addEventListener('click', manejarFinalizarMenu);
+            }
+        });
+    </script>
+</body>
+</html>

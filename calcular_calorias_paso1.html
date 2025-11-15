@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css"> 
+    
+    <title>Calcula Tus Calorías - Paso 1 | YOUR BEST VERSION</title>
+    
+    <link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para el formulario de cálculo */
+        .contenido-calculadora {
+            max-width: 700px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 0 20px #ff004c; /* Sombra azul para Nutrición */
+        }
+        h2 {
+            color: #ff004c;
+            border-bottom: 3px solid #ff004c;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        /* --- ESTILOS DE GRID PARA EL FORMULARIO (Solución al apiñamiento) --- */
+        .formulario-datos-grid {
+            display: grid;
+            /* Dos columnas de igual tamaño */
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px 30px; 
+            margin-bottom: 20px;
+        }
+        @media (max-width: 600px) {
+            /* En pantallas pequeñas, volvemos a una sola columna */
+            .formulario-datos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .campo-contenedor {
+            /* Contenedor de cada input/select */
+            margin-top: 15px; 
+        }
+        
+        /* Hace que las secciones de Sexo y Objetivo ocupen todo el ancho de la cuadrícula */
+        .campo-columna-completa {
+            grid-column: 1 / -1; 
+        }
+        /* --- FIN DE ESTILOS GRID --- */
+        
+        .formulario-datos label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #00aaff;
+            margin-top: 0; /* Lo gestiona el .campo-contenedor */
+        }
+        .formulario-datos input[type="number"], 
+        .formulario-datos select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #555;
+            background-color: #333;
+            color: white;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+        .boton-calcular {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 30px;
+            background-color: #4CAF50; /* Verde */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .boton-calcular:hover {
+            background-color: #45a049;
+        }
+        .alerta {
+            color: #ffcc00;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo-contenedor">
+            <img src="productos/logopestaña.png" alt="Logo de YBV" class="logo">
+        </div>
+
+        <div class="titulo-contenedor">
+            <h1>Personaliza Tu Dieta - Paso 1</h1>
+            <div class="botones-contenedor">
+                <a href="contenido_inicial.html" class="menu-boton">Inicio</a>
+                <a href="empresa.html" class="menu-boton">Empresa</a>
+                <a href="productos.html" class="menu-boton">Productos</a>
+                <a href="contacto.html" class="menu-boton">Contacto</a>
+            </div>
+        </div>
+        <hr class="linea-encima">
+    </header>
+
+    <main>
+        <div class="contenido-calculadora">
+            <h2>Calcula Tus Requerimientos Calóricos </h2>
+            <p class="alerta">Necesitamos esta información para determinar tus calorías diarias de mantenimiento.</p>
+
+            <form id="formularioCalculoCalorias">
+                <div class="formulario-datos-grid">
+                    
+                    <div class="campo-contenedor campo-columna-completa">
+                        <label for="sexo">1. Sexo (Necesario para la Fórmula Metabólica)</label>
+                        <select id="sexo" required>
+                            <option value="" disabled selected>-- Selecciona --</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                        </select>
+                    </div>
+
+                    <div class="campo-contenedor">
+                        <label for="edad">2. Edad (Años)</label>
+                        <input type="number" id="edad" min="15" max="99" required>
+                    </div>
+
+                    <div class="campo-contenedor">
+                        <label for="peso">3. Peso (kg)</label>
+                        <input type="number" id="peso" step="0.1" min="30" max="300" required>
+                    </div>
+
+                    <div class="campo-contenedor">
+                        <label for="altura">4. Altura (cm)</label>
+                        <input type="number" id="altura" min="100" max="250" required>
+                    </div>
+
+                    <div class="campo-contenedor">
+                        <label for="actividad">5. Nivel de Actividad Física Diaria (F.A.)</label>
+                        <select id="actividad" required>
+                            <option value="" disabled selected>-- Selecciona tu Nivel --</option>
+                            <option value="1.2">Sedentario (Poco o ningún ejercicio)</option>
+                            <option value="1.375">Ligero (Ejercicio 1-3 días/semana)</option>
+                            <option value="1.55">Moderado (Ejercicio 3-5 días/semana)</option>
+                            <option value="1.725">Activo (Ejercicio 6-7 días/semana)</option>
+                            <option value="1.9">Muy Activo (Doble sesión o trabajo físico)</option>
+                        </select>
+                    </div>
+                
+                    <div class="campo-contenedor campo-columna-completa">
+                        <label for="objetivo">6. Objetivo</label>
+                        <select id="objetivo" required>
+                            <option value="" disabled selected>-- Selecciona tu Meta --</option>
+                            <option value="aumento">Aumentar masa corporal (Volumen)</option>
+                            <option value="perdida">Disminuir Grasa corporal (Definición)</option>
+                            <option value="mantenimiento">Mantener el peso actual (Recomposición)</option>
+                        </select>
+                    </div>
+                    
+                </div>
+                <button type="submit" class="boton-calcular">Calcular y Continuar al Paso 2</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 YOUR BEST VERSION. Todos los Derechos Reservados.
+    </footer>
+
+    <script>
+        document.getElementById('formularioCalculoCalorias').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // 1. Obtener valores
+            const sexo = document.getElementById('sexo').value;
+            const edad = parseFloat(document.getElementById('edad').value);
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            const factorActividad = parseFloat(document.getElementById('actividad').value);
+            const objetivo = document.getElementById('objetivo').value;
+
+            // 2. Calcular Gasto Metabólico Basal (TMB o GMB) - Fórmula de Mifflin-St Jeor
+            let tmb;
+            if (sexo === 'masculino') {
+                // Hombres: (10 * peso en kg) + (6.25 * altura en cm) - (5 * edad en años) + 5
+                tmb = (10 * peso) + (6.25 * altura) - (5 * edad) + 5;
+            } else {
+                // Mujeres: (10 * peso en kg) + (6.25 * altura en cm) - (5 * edad en años) - 161
+                tmb = (10 * peso) + (6.25 * altura) - (5 * edad) - 161;
+            }
+
+            // 3. Calcular Gasto Calórico Total (GCT) - Calorías de Mantenimiento
+            const gctMantenimiento = tmb * factorActividad;
+
+            // 4. Ajustar Calorías según el Objetivo
+            let caloriasObjetivo;
+            let ajusteCalorico;
+            
+            switch (objetivo) {
+                case 'aumento':
+                    // Aumento de masa: Añadir 300-500 kcal
+                    ajusteCalorico = 400; 
+                    caloriasObjetivo = gctMantenimiento + ajusteCalorico;
+                    break;
+                case 'perdida':
+                    // Pérdida de grasa: Restar 300-500 kcal
+                    ajusteCalorico = -400; 
+                    caloriasObjetivo = gctMantenimiento + ajusteCalorico;
+                    break;
+                case 'mantenimiento':
+                default:
+                    ajusteCalorico = 0;
+                    caloriasObjetivo = gctMantenimiento;
+                    break;
+            }
+            
+            // Redondear el GCT y las Calorías Objetivo
+            const gctRedondeado = Math.round(gctMantenimiento);
+            const caloriasFinales = Math.round(caloriasObjetivo);
+
+            // 5. Guardar la información importante en localStorage
+            const datosNutricionales = {
+                sexo: sexo,
+                peso: peso,
+                altura: altura,
+                edad: edad,
+                factorActividad: factorActividad,
+                objetivo: objetivo,
+                tmb: Math.round(tmb),
+                gctMantenimiento: gctRedondeado,
+                caloriasObjetivo: caloriasFinales,
+                ajuste: ajusteCalorico
+            };
+
+            localStorage.setItem('datosNutricionales', JSON.stringify(datosNutricionales));
+
+            // 6. Redirigir al Paso 2: Selección de Platos
+            alert(`Cálculo completado: Necesitas ${caloriasFinales} Kcal para tu objetivo de ${objetivo}.`);
+            // Redirige al siguiente paso del flujo de Dieta
+            window.location.href = 'seleccionar_platos_paso2.html'; 
+        });
+    </script>
+</body>
+</html>

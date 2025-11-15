@@ -1,0 +1,262 @@
+body {
+    opacity: 1;
+    background-color: #1f211f;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    padding: 0 0 50px 0;
+    position: relative;
+    scroll-behavior: smooth;
+    font-weight: 800;
+    background-image: url(productos/fondo_inicio.png);
+    background-attachment: fixed; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+body::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% + 40px));
+    width: 30%;
+    height: 0;
+    padding-top: 30%;
+    background: url('productos/logoYBV.png') no-repeat center / contain;
+    opacity: 0.01;
+    z-index: -1;
+    pointer-events: none;
+    animation: fadeLogoIn 1s ease-in-out forwards 0.1s;
+}
+@keyframes fadeLogoIn {
+    0% { opacity: 0; }
+    100% { opacity: 1.0; }
+}
+
+h1 {
+    color: #F0F0F0;
+    text-align: center;
+    font-family: "Audiowide", sans-serif;
+    font-size: 55px;
+    margin: 0;
+    padding: 5px 0;
+    text-shadow: 
+        0 0 2px #000000,
+        
+        0 0 7.5px #B40303,
+        
+        0 0 15px #B40303,
+        
+        0 0 30px rgba(180, 3, 3, 0.7);
+}
+
+.menu-boton {
+    text-decoration: none;
+    background-color: #171718a4;
+    color: #b60303;
+    padding: 10px 10px;
+    font-size: 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    margin: 5px;
+
+
+}
+
+.menu-boton:hover {
+    background-color: #9fa3a9ac;
+    color: black;
+    text-shadow: 
+        0px 0px 0 #000000, 
+        0px 0px 0 #000000, 
+        0px 0px 0 #000000, 
+        0px 0px 0 #000000; 
+}
+
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #242424;
+    color: #cfcece;
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+    font: 16px "Montserrat", sans-serif;
+    font-weight: 600;
+}
+
+header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    animation: aparecer 0.5s ease-out forwards;
+    opacity: 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+.logo-contenedor {
+    position: fixed;
+    left: 30px;
+    top: 7%;
+}
+
+.logo {
+    height: 80px;
+    width: auto;
+}
+
+@keyframes aparecer {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.linea-encima {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    border: none;
+    z-index: 0;
+    margin: 0;
+    top: 95px;
+}
+
+.botones-contenedor {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 0;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-page {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    
+    position: absolute; 
+    top: 70%;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 50px); 
+    z-index: 5; 
+}
+
+.contact-box {
+    background-color: rgba(30, 30, 30, 0.9); 
+    color: #F0F0F0; 
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(180, 3, 3, 0.6); 
+    width: 90%;
+    max-width: 600px;
+    z-index: 10;
+    margin-top: 100px; 
+}
+
+.contact-box h2 {
+    font-family: "Audiowide", sans-serif;
+    color: #F0F0F0;
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px #B40303; 
+}
+
+.contact-description {
+    color: #CCC;
+    margin-bottom: 25px;
+}
+
+.contact-box input,
+.contact-box textarea {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(180, 3, 3, 0.3); 
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.9); 
+    color: #333;
+    box-sizing: border-box; 
+    font-family: "Montserrat", sans-serif;
+    resize: vertical; 
+}
+
+.contact-submit-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #B40303; 
+    color: white;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+}
+
+.contact-submit-btn:hover {
+    background-color: #8c0202;
+    box-shadow: 0 0 10px #B40303;
+}
+
+.contact-info {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(180, 3, 3, 0.2);
+    text-align: left;
+}
+
+.contact-info h3 {
+    color: #F0F0F0;
+    font-size: 1.1em;
+    font-family: "Montserrat", sans-serif;
+}
+
+.contact-info a {
+    color: #B40303; 
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-info a:hover {
+    color: #FFFFFF;
+}
+
+.social-buttons-container {
+    display: flex;
+    justify-content: center; 
+    gap: 20px;
+    
+}
+
+.social-buttons-container a img{
+    width: 75px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.social-buttons-container a img:hover{
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}

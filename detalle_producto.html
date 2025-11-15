@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css"> 
+    
+    <title id="tituloPagina">Detalle de Producto | YOUR BEST VERSION</title>
+    
+    <link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Estilos generales para esta página de detalle */
+        .contenido-detalle {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 0 20px #ff004c; 
+        }
+        .producto-principal {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            border-bottom: 2px solid #444;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+        .producto-imagen {
+            flex: 0 0 40%; 
+            max-width: 400px;
+            text-align: center;
+        }
+        .producto-imagen img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 3px solid #ff004c;
+        }
+        .producto-info {
+            flex: 1;
+        }
+        .producto-info h2 {
+            color: #ff004c;
+            border-bottom: none;
+            text-align: left;
+            margin-bottom: 0;
+            font-size: 2em;
+        }
+        .producto-info h3 {
+            color: #ff004c;
+            font-size: 1.5em;
+            margin-top: 5px;
+        }
+        .etiqueta {
+            display: inline-block;
+            background-color: #ff004c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        
+        /* Sección de Pedido */
+        .seccion-pedido {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ff004c;
+        }
+        .seccion-pedido h3 {
+            color: #ff004c;
+            border-left: 5px solid #ff004c;
+            padding-left: 10px;
+            margin-bottom: 20px;
+        }
+        .formulario-pedido label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .formulario-pedido input[type="text"], 
+        .formulario-pedido input[type="email"],
+        .formulario-pedido input[type="number"],
+        .formulario-pedido select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            background-color: #333;
+            color: white;
+            box-sizing: border-box;
+        }
+        .btn-comprar {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 30px;
+            background-color: #ff004c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn-comprar:hover {
+            background-color: #be053d;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo-contenedor">
+            <img src="productos/logopestaña.png" alt="Logo de YBV" class="logo">
+        </div>
+
+        <div class="titulo-contenedor">
+            <h1>Tienda de Suplementos y Accesorios</h1>
+            <div class="botones-contenedor">
+                <a href="contenido_inicial.html" class="menu-boton">Inicio</a>
+                <a href="empresa.html" class="menu-boton">Empresa</a>
+                <a href="productos.html" class="menu-boton">Productos</a>
+                <a href="contacto.html" class="menu-boton">Contacto</a>
+            </div>
+        </div>
+        <hr class="linea-encima">
+    </header>
+
+    <main>
+        <div class="contenido-detalle">
+            
+            <div class="producto-principal">
+                <div class="producto-imagen">
+                    <img id="productoImagen" src="" alt="Imagen del Producto">
+                    <p style="margin-top: 10px; font-style: italic;">Marca: <strong id="productoMarca"></strong></p>
+                </div>
+                
+                <div class="producto-info">
+                    <span id="productoTipo" class="etiqueta"></span>
+                    <h2 id="productoNombre"></h2>
+                    <h3>Precio Estimado (COP): <span id="productoPrecio"></span></h3>
+                    
+                    <h4>Detalles del Producto:</h4>
+                    <p id="productoNota"></p>
+
+                    <h4>Uso Recomendado:</h4>
+                    <p id="productoUso"></p>
+                </div>
+            </div>
+            
+            <div class="seccion-pedido">
+                <h3> Realiza tu Pedido</h3>
+                <p>Ingresa tus datos para procesar la reserva de tu producto y coordinar el método de pago y envío.</p>
+                
+                <form id="formularioPedido" class="formulario-pedido">
+                    <label for="nombreCliente">Nombre Completo:</label>
+                    <input type="text" id="nombreCliente" name="nombreCliente" required>
+
+                    <label for="emailCliente">Correo Electrónico:</label>
+                    <input type="email" id="emailCliente" name="emailCliente" required>
+                    
+                    <label for="telefonoCliente">Teléfono (WhatsApp):</label>
+                    <input type="text" id="telefonoCliente" name="telefonoCliente" required>
+
+                    <label for="direccionEnvio">Dirección de Envío:</label>
+                    <input type="text" id="direccionEnvio" name="direccionEnvio" required>
+                    
+                    <label for="cantidad">Cantidad:</label>
+                    <input type="number" id="cantidad" name="cantidad" value="1" min="1" required>
+
+                    <label for="metodoPago">Método de Pago Preferido:</label>
+                    <select id="metodoPago" name="metodoPago" required>
+                        <option value="nequi">Nequi / Daviplata</option>
+                        <option value="transferencia">Transferencia Bancaria</option>
+                        <option value="pago_contraentrega">Pago Contra Entrega (Ciudades Principales)</option>
+                    </select>
+
+                    <button type="submit" class="btn-comprar">Finalizar Pedido y Coordinar Envío</button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 YOUR BEST VERSION. Todos los Derechos Reservados.
+    </footer>
+
+    <script>
+        // *** 1. BASE DE DATOS DE PRODUCTOS (COMPLETA) ***
+        const DB_PRODUCTOS = {
+            // SUPLEMENTOS
+            "whey_gold": {
+                "tipo": "Suplemento",
+                "nombre": "Optimum Nutrition Gold Standard 100% Whey (2 Lbs)",
+                "imagen": "productos/proteinawhey.png",
+                "precio": "180.000 - 250.000",
+                "uso": "Tomar 30-60 minutos después del entrenamiento. También como snack si no alcanzas tus proteínas.",
+                "nota": "Líder mundial. Asegura 24g de proteína de alta calidad por servicio y baja grasa/carbohidratos.",
+                "marca": "Optimum Nutrition"
+            },
+            "creatina_uni": {
+                "tipo": "Suplemento",
+                "nombre": "Creatina Monohidratada Universal Nutrition (500g)",
+                "imagen": "productos/creatina.png",
+                "precio": "120.000 - 180.000",
+                "uso": "5 gramos al día, todos los días (entrenamiento o descanso). La clave es la consistencia.",
+                "nota": "Busca siempre Creatina Monohidratada pura, que es la que tiene la mayor evidencia científica de efectividad.",
+                "marca": "Universal Nutrition"
+            },
+            "bcaas_xtend": {
+                "tipo": "Suplemento",
+                "nombre": "Xtend Scivation (Aminoácidos Ramificados)",
+                "imagen": "productos/bcaas.png",
+                "precio": "130.000 - 190.000",
+                "uso": "Durante el entrenamiento (Intra-entreno) o en ayunas para reducir el catabolismo y mejorar la hidratación.",
+                "nota": "Prioridad baja. Útil para saborizar el agua y ayudar a la recuperación intra-entreno.",
+                "marca": "Scivation"
+            },
+            "preentreno_c4": {
+                "tipo": "Suplemento",
+                "nombre": "Pre-Entreno C4 Cellucor o The Curse Cobra Labs",
+                "imagen": "productos/preentreno.png",
+                "precio": "120.000 - 200.000",
+                "uso": "15-30 minutos antes de entrenar. Úsalo solo en sesiones de alta intensidad o fatiga.",
+                "nota": "Cuidado con la cafeína. Empieza con media dosis para evaluar tu tolerancia.",
+                "marca": "Cellucor / Cobra Labs"
+            },
+            "omega3_nordic": {
+                "tipo": "Suplemento",
+                "nombre": "Omega-3 (Aceite de Pescado de alta concentración)",
+                "imagen": "productos/omega3.png",
+                "precio": "70.000 - 150.000",
+                "uso": "Tomar con las comidas (desayuno o cena) para una mejor absorción.",
+                "nota": "Esencial para la salud general, cardiovascular y la recuperación articular. Revisa el contenido de EPA y DHA.",
+                "marca": "Nordic Naturals / Healthy Sports"
+            },
+            "multi_animalpak": {
+                "tipo": "Suplemento",
+                "nombre": "Multivitamínico Animal Pak o Opti-Men/Opti-Women",
+                "imagen": "productos/multivitaminico.png",
+                "precio": "150.000 - 220.000",
+                "uso": "Una vez al día, con una comida.",
+                "nota": "Diseñado para atletas con alta demanda. Es excelente para rellenar posibles huecos nutricionales de tu dieta.",
+                "marca": "Universal Nutrition / Optimum Nutrition"
+            },
+            
+            // ACCESORIOS
+            "cinturon_rdx": {
+                "tipo": "Accesorio",
+                "nombre": "Cinturón de Levantamiento RDX Cuero (10mm)",
+                "imagen": "productos/cinturon.png",
+                "precio": "180.000 - 450.000",
+                "uso": "Solo en ejercicios compuestos pesados (Sentadilla, Peso Muerto, Press Militar) para estabilizar la columna.",
+                "nota": "Los cinturones de cuero de 10mm son los más duraderos y de mejor soporte. Requiere usar la técnica de 'Bracing'.",
+                "marca": "RDX / Rogue Fitness"
+            },
+            "straps_schiek": {
+                "tipo": "Accesorio",
+                "nombre": "Straps (Correas) Schiek (Acolchadas)",
+                "imagen": "productos/straps.png",
+                "precio": "60.000 - 100.000",
+                "uso": "En ejercicios de tirón pesados (Peso Muerto, Remos, Encogimientos) cuando tu agarre falla antes que el músculo objetivo.",
+                "nota": "No abuses de ellos, entrena tu agarre sin straps en series de calentamiento.",
+                "marca": "Schiek / Grizzly Fitness"
+            },
+            "munhequeras_sbd": {
+                "tipo": "Accesorio",
+                "nombre": "Muñequeras SBD o Inzer (Soporte Premium)",
+                "imagen": "productos/munhequeras.png",
+                "precio": "80.000 - 180.000",
+                "uso": "Usar en ejercicios de empuje pesados (Press de Banca, Press Militar) para dar soporte y estabilidad a la muñeca.",
+                "nota": "Las marcas premium de powerlifting ofrecen mayor rigidez y soporte.",
+                "marca": "SBD / Inzer"
+            },
+            "rodilleras_rehband": {
+                "tipo": "Accesorio",
+                "nombre": "Rodilleras (Knee Sleeves) Rehband o SBD",
+                "imagen": "productos/rodilleras.png",
+                "precio": "250.000 - $400.000",
+                "uso": "Usar en Sentadillas pesadas y ejercicios que requieran compresión y calor para prevenir molestias.",
+                "nota": "El neopreno de 7mm ofrece máximo soporte y calor a los tendones y ligamentos.",
+                "marca": "Rehband / SBD"
+            },
+            "guantes_harbinger": {
+                "tipo": "Accesorio",
+                "nombre": "Guantes / Calleras Harbinger o Bear Komplex",
+                "imagen": "productos/guantes.png",
+                "precio": "70.000 - 140.000",
+                "uso": "Usar si buscas prevenir callos o mejorar el agarre por sudoración excesiva.",
+                "nota": "Muchos prefieren el magnesio líquido como alternativa a los guantes.",
+                "marca": "Harbinger / Bear Komplex"
+            },
+            "audifonos_jbl": {
+                "tipo": "Accesorio",
+                "nombre": "Audífonos Deportivos JBL Endurance Peak o AirPods Pro",
+                "imagen": "productos/audifonos.png",
+                "precio": "250.000 - 800.000+",
+                "uso": "Durante toda la sesión para mantener el foco mental y la motivación.",
+                "nota": "Es esencial que tengan certificación IPX4 o superior para que sean a prueba de sudor.",
+                "marca": "JBL / Apple"
+            }
+            // Agrega más productos aquí si los necesitas en el futuro.
+        };
+
+        // *** 2. FUNCIÓN PARA CARGAR EL PRODUCTO DINÁMICAMENTE ***
+        function cargarDetalleProducto() {
+            // Obtener la URL actual (Ej: detalle_producto.html?id=whey_gold)
+            const urlParams = new URLSearchParams(window.location.search);
+            const productoId = urlParams.get('id');
+
+            // 1. Validar y obtener el producto de la base de datos
+            const producto = DB_PRODUCTOS[productoId];
+
+            if (!producto) {
+                // Si el ID no existe, muestra un error
+                document.getElementById('productoNombre').textContent = '⚠️ Producto No Encontrado';
+                document.getElementById('productoPrecio').textContent = 'N/A';
+                document.getElementById('productoNota').textContent = 'El identificador del producto no es válido. Por favor, regrese a la tienda.';
+                return;
+            }
+
+            // 2. Rellenar los elementos HTML con los datos del producto
+            
+            // Título y metas
+            document.getElementById('tituloPagina').textContent = producto.nombre + ' | YOUR BEST VERSION';
+            document.getElementById('productoTipo').textContent = producto.tipo;
+            
+            // Información del Producto
+            document.getElementById('productoNombre').textContent = producto.nombre;
+            document.getElementById('productoPrecio').textContent = producto.precio + ' COP';
+            document.getElementById('productoMarca').textContent = producto.marca;
+            document.getElementById('productoNota').textContent = producto.nota;
+            document.getElementById('productoUso').textContent = producto.uso;
+            
+            // Imagen (Importante: Asegúrate de que la ruta de la imagen sea correcta)
+            document.getElementById('productoImagen').src = producto.imagen;
+            document.getElementById('productoImagen').alt = 'Imagen de ' + producto.nombre;
+            
+            // 3. Agregar funcionalidad al formulario
+            document.getElementById('formularioPedido').addEventListener('submit', (e) => {
+                e.preventDefault();
+                manejarPedido(producto);
+            });
+        }
+        
+        // *** 3. FUNCIÓN PARA PROCESAR EL PEDIDO ***
+        function manejarPedido(producto) {
+            const form = document.getElementById('formularioPedido');
+            
+            // Crear el objeto de datos del pedido
+            const data = {
+                nombre: form.nombreCliente.value,
+                email: form.emailCliente.value,
+                telefono: form.telefonoCliente.value,
+                direccion: form.direccionEnvio.value,
+                cantidad: form.cantidad.value,
+                pago: form.metodoPago.value,
+                producto: producto.nombre,
+                precio: producto.precio 
+            };
+
+            // Mensaje de alerta para simular el envío
+            const mensaje = `
+                ✅ PEDIDO ENVIADO CON ÉXITO:
+                -------------------------------------
+                Producto: ${data.producto} (x${data.cantidad})
+                Cliente: ${data.nombre}
+                Teléfono: ${data.telefono}
+                Dirección: ${data.direccion}
+                Pago Preferido: ${data.pago}
+                
+                ¡Gracias por tu compra! En breve te contactaremos al número ${data.telefono} para confirmar el precio final y el envío.
+            `;
+
+            alert(mensaje);
+            form.reset();
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', cargarDetalleProducto);
+    </script>
+</body>
+</html>

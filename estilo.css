@@ -1,0 +1,378 @@
+body {
+    opacity: 1;
+    background-color: #1f211f;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    padding: 0 0 50px 0;
+    position: relative;
+    scroll-behavior: smooth;
+    font-weight: 800;
+    background-image: url(productos/fondo_inicio.png);
+    background-attachment: fixed; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% + 40px));
+    width: 30%;
+    height: 0;
+    padding-top: 30%;
+    background: url('productos/logoYBV.png') no-repeat center / contain;
+    opacity: 0.01;
+    z-index: -1;
+    pointer-events: none;
+    animation: fadeLogoIn 1s ease-in-out forwards 0.1s;
+}
+
+@keyframes fadeLogoIn {
+    0% { opacity: 0; }
+    100% { opacity: 1.0; }
+}
+
+h1 {
+    color: #F0F0F0;
+    text-align: center;
+    font-family: "Audiowide", sans-serif;
+    font-size: 55px;
+    margin: 0;
+    padding: 5px 0;
+    text-shadow: 
+        0 0 2px #000000,
+        
+        0 0 7.5px #B40303,
+        
+        0 0 15px #B40303,
+        
+        0 0 30px rgba(180, 3, 3, 0.7);
+}
+
+.menu-boton {
+    text-decoration: none;
+    background-color: #171718a4;
+    color: #b60303;
+    padding: 10px 10px;
+    font-size: 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    margin: 5px;
+
+
+}
+
+.menu-boton:hover {
+    background-color: #9fa3a9ac;
+    color: black;
+    text-shadow: 
+        0px 0px 0 #000000, 
+        0px 0px 0 #000000, 
+        0px 0px 0 #000000, 
+        0px 0px 0 #000000; 
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #242424;
+    color: #cfcece;
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+    font: 16px "Montserrat", sans-serif;
+    font-weight: 600;
+}
+
+header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    animation: aparecer 0.5s ease-out forwards;
+    opacity: 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0;
+}
+
+.logo-contenedor {
+    position: fixed;
+    left: 30px;
+    top: 7%;
+}
+
+.logo {
+    height: 80px;
+    width: auto;
+}
+
+@keyframes aparecer {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.linea-encima {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    border: none;
+    z-index: 0;
+    margin: 0;
+    top: 95px;
+}
+
+.botones-contenedor {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 0;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.seccion-inicio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    width: 60%;
+    margin: 0 auto 20px;
+    box-sizing: border-box;
+    padding: 20px;
+    animation: aparecer 0.5s ease-out forwards;
+    text-align: center;
+    color: #F0F0F0;
+    font-size: 1.6em;
+    border-bottom: 1px solid #ccc;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    background-color: rgba(30, 30, 30, 0.9);
+    box-shadow: 0 0 30px rgba(180, 3, 3, 0.7);
+    border: 1px solid rgba(180, 3, 3, 0.5);
+    text-shadow: 
+        0 0 2px #000000,
+        
+        0 0 7.5px #000000,
+        
+        0 0 15px #000000,
+        
+        0 0 30px rgba(0, 0, 0, 0.7);
+}
+
+
+.seccion-inicio h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #F0F0F0;
+    text-shadow: 
+        0 0 2px #000000,
+        
+        0 0 7.5px #000000,
+        
+        0 0 15px #000000,
+        
+        0 0 30px rgba(0, 0, 0, 0.7);
+}
+
+.seccion-inicio p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 1em;
+
+}
+
+.seccion-inicio img {
+    max-width: 80%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.seccion-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.seccion-link:last-of-type {
+    margin-bottom: 0;
+}
+
+.seccion-link:hover .seccion-inicio {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.pagina-individual-contenido {
+    width: 80%;
+    margin: 40px auto 80px;
+    padding: 2%;
+    background-color: rgba(30, 30, 30, 0.9);
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+    box-sizing: border-box;
+    min-height: calc(100vh - 250px);
+}
+
+.pagina-individual-contenido h2 {
+    font-size: 2.5em;
+    color: #4a2c0f;
+    margin-bottom: 20px;
+}
+
+.pagina-individual-contenido p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+.productos-contenedor,
+.ejercicios-contenedor {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: stretch;
+}
+
+.ejercicios-contenedor {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.producto,
+.trenes,
+.musculos {
+    background-color: rgba(30, 30, 30, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px #000;
+    overflow: hidden;
+    padding: 20px;
+    text-align: center;
+    font: 22px 'Montserrat', sans-serif;
+    color: #F0F0F0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-shadow: 
+        0 0 0.5px #000000,
+        
+        0 0 3.75px #B40303,
+        
+        0 0 3.75px #B40303,
+        
+        0 0 7.5px rgba(180, 3, 3, 0.7);
+
+}
+
+.producto img,
+.trenes img,
+.musculos img {
+    height: 200px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    max-width: 100%;
+}
+
+.trenes img {
+    height: 300px;
+    object-fit: contain;
+}
+
+.musculos img {
+    height: 300px;
+    object-fit: contain;
+}
+
+.musculo-link {
+    text-decoration: none; 
+    color: inherit; 
+    display: block;
+    box-sizing: border-box; 
+    width: calc(50% - 20px); 
+    min-width: 250px; 
+}
+
+
+.musculo-link:hover .musculos {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.producto:hover,
+.trenes:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+.musculos-supinf {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: stretch;
+}
+
+.moverimagen {
+    width: 40%;
+    height: 100%;
+    animation: aparecer 1.5s ease-out forwards;
+}
+.alimentacion_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    width: 75%;
+    margin: 0 auto 20px;
+    box-sizing: border-box;
+    padding: 20px;
+    animation: aparecer 0.5s ease-out forwards;
+    text-align: center;
+    color: #F0F0F0;
+    font-size: 30px;
+    border-bottom: 1px solid #ccc;
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    background-color: rgba(30, 30, 30, 0.9);
+    box-shadow: 0 0 30px rgba(180, 3, 3, 0.7);
+    border: 1px solid rgba(180, 3, 3, 0.5);
+    text-shadow: 
+        0 0 2px #000000,
+        
+        0 0 7.5px #000000,
+        
+        0 0 15px #000000,
+        
+        0 0 30px rgba(0, 0, 0, 0.7);
+}

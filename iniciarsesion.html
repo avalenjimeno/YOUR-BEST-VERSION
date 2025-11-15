@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="iniciarsesion.css"> 
+    <title>Iniciar Sesión - YOUR BEST VERSION</title>
+    <link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <div class="logo-contenedor">
+            <img src="productos/logopestaña.png" alt="Logo de YBV" class="logo">
+        </div>
+    </header>
+    
+    <main class="login-page">
+        
+        <div class="login-box">
+            <h1>ACCEDE A YOUR BEST VERSION</h1>
+            
+            <button class="google-login-btn">
+                <i class="fab fa-google"></i>
+                Iniciar Sesión con Google
+            </button>
+            
+            <p class="o-separador">O</p>
+
+            <form id="login-form">
+                <input type="email" placeholder="Correo Electrónico" required>
+                <input type="password" placeholder="Contraseña" required>
+                <button type="submit" class="login-submit-btn">Entrar</button>
+            </form>
+
+            <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+            <p class="guest-info">Si deseas explorar como invitado, regresa a la página anterior.</p>
+        </div>
+        
+    </main>
+
+    <footer>
+        &copy; 2025 YOUR BEST VERSION. Todos los Derechos Reservados.
+    </footer>
+    
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            // Previene el envío del formulario real para que no recargue la página
+            event.preventDefault(); 
+            
+            // Redirige al contenido principal
+            window.location.href = 'contenido_inicial.html';
+        });
+    </script>
+</body>
+</html>

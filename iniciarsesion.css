@@ -1,0 +1,167 @@
+/* =========================================================================
+   ESTILOS DE LA PÁGINA DE LOGIN (iniciarsesion.css)
+   ========================================================================= */
+
+body {
+    margin: 0;
+    padding: 0; 
+    position: relative;
+    background-color: #1f211f;
+    opacity: 1;
+
+    /* Fondo de la imagen de gimnasio */
+    background-image: url(productos/fondo_inicio.png);
+    background-attachment: fixed; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    font-family: "Montserrat", sans-serif;
+    color: #F0F0F0;
+}
+
+/* Estilos para el Encabezado y Footer */
+.logo-contenedor {
+    position: fixed;
+    left: 30px;
+    top: 5%;
+}
+
+.logo {
+    height: 100px;
+    width: auto;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #242424;
+    color: #cfcece;
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+    
+    /* Desglose de la propiedad 'font' para mayor claridad y estabilidad */
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+}
+
+/* -------------------------------------------------------------------------
+   CONTENEDOR PRINCIPAL DEL LOGIN
+   ------------------------------------------------------------------------- */
+
+/* Centra el contenedor de login en la página */
+.login-page {
+    /* Utiliza Flexbox para centrar el contenido vertical y horizontalmente */
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 50px); 
+    z-index: 5; 
+}
+
+.login-box {
+    background-color: rgba(0, 0, 0, 0.6); 
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(180, 3, 3, 0.7); 
+    width: 350px;
+    max-width: 90%;
+    z-index: 10;
+    border: 1px solid rgba(180, 3, 3, 0.5);
+}
+
+.login-box h1 {
+    font-family: "Audiowide", sans-serif;
+    color: #F0F0F0;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    text-shadow: 0 0 5px #B40303; 
+}
+
+/* Estilo para los campos de entrada - Ajustado para ser más estético */
+.login-box input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borde sutil */
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo transparente oscuro */
+    color: white; /* Texto blanco para mayor contraste */
+    box-sizing: border-box; 
+    font-family: "Montserrat", sans-serif;
+}
+/* Estilo del placeholder para que sea visible con el fondo oscuro */
+.login-box input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+
+.login-submit-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #B40303; 
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    /* Se eliminan estilos que eran para <a> y no para <button> */
+    /* display: block; */
+    /* text-align: center; */
+    /* text-decoration: none; */
+    box-sizing: border-box; 
+}
+
+.login-submit-btn:hover {
+    background-color: #8c0202;
+}
+
+/* Estilo para el botón de Google - Ajustado para ser más estético */
+.google-login-btn {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borde sutil */
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo transparente oscuro */
+    color: white;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: "Montserrat", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.google-login-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Un poco más claro al pasar el ratón */
+}
+
+.o-separador {
+    color: #F0F0F0;
+    margin: 20px 0;
+}
+
+.forgot-password, .guest-info {
+    font-size: 0.9em;
+    color: #CCC;
+    text-decoration: none;
+    display: block;
+    margin-top: 15px;
+}

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Personaliza Tu Rutina - Paso 2 | YOUR BEST VERSION</title>
+    <link rel="icon" type="image/x-icon" href="productos/logopestaña.png" sizes="64x64">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos CSS complementarios */
+        .contenido-rutina {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #2c2c2c;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            min-height: 500px; /* Asegura una altura mínima */
+            overflow-y: auto; /* Agrega scroll si el contenido es muy largo */
+            /* SOLUCIÓN CRÍTICA DE VISIBILIDAD: */
+            position: relative; 
+            z-index: 10;        
+        }
+        .dia-entrenamiento {
+            border: 1px solid #ff004c;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 6px;
+            background-color: #1a1a1a;
+        }
+        .dia-entrenamiento h3 {
+            color: #ff004c;
+            margin-top: 0;
+            border-bottom: 2px solid #ff004c;
+            padding-bottom: 10px;
+        }
+        .grupo-ejercicios {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 3px solid #ff004c;
+            background-color: #222;
+        }
+        .grupo-ejercicios label {
+            display: block;
+            font-weight: bold;
+            color: #00aaff;
+            margin-bottom: 8px;
+        }
+        .select-ejercicio {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background-color: #444;
+            color: white;
+            margin-bottom: 5px;
+        }
+        .boton-agregar {
+            background-color: #ff004c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .lista-ejercicios-seleccionados {
+            list-style: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+        .lista-ejercicios-seleccionados li {
+            background-color: #333;
+            padding: 5px 10px;
+            margin-bottom: 3px;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .boton-eliminar {
+            background-color: #ff004c;
+            color: white;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        #contenedor-rutinas-dinamico {
+            margin-top: 20px;
+        }
+        .boton-finalizar {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            margin-top: 30px;
+            background-color: #4CAF50; /* Verde para acción final */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.4em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .boton-finalizar:hover {
+            background-color: #45a049;
+        }
+        .dia-descanso {
+            background-color: #3a3a3a;
+            border: 1px dashed #777;
+            text-align: center;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 6px;
+        }
+        .cardio-section {
+            margin-top: 20px;
+            padding: 15px;
+            border-top: 1px solid #555;
+        }
+    </style>
+</head>
+<body>
+    <header class="encabezado">
+        <div class="logo-contenedor">
+            <img src="productos/logopestaña.png" alt="Logo de YBV" class="logo">
+        </div>
+
+        <div class="titulo-contenedor">
+            <h1>Personaliza Tu Rutina - Paso 2</h1>
+            <div class="botones-contenedor">
+                <a href="contenido_inicial.html" class="menu-boton">Inicio</a>
+                <a href="empresa.html" class="menu-boton">Empresa</a>
+                <a href="productos.html" class="menu-boton">Productos</a>
+                <a href="contacto.html" class="menu-boton">Contacto</a>
+            </div>
+        </div>
+        <hr class="linea-encima">
+    </header>
+
+    <main>
+        <div class="contenido-rutina">
+            <h2>Asigna los ejercicios a tu plan semanal </h2>
+            <p>Selecciona los ejercicios para cada grupo muscular de tu rutina. Puedes añadir varios por grupo. No olvides seleccionar una opción de cardio.</p>
+
+            <form id="formAsignacionEjercicios">
+                <div id="contenedor-rutinas-dinamico">
+                    <p>Cargando tu rutina...</p>
+                </div>
+
+                <button type="submit" class="boton-finalizar">Finalizar Rutina y Ver Resumen</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2025 YOUR BEST VERSION. Todos los Derechos Reservados.
+    </footer>
+
+    <script>
+        // Objeto con la lista de ejercicios disponibles
+        const ejerciciosDisponibles = {
+            'Espalda': ['Dominadas', 'Jalón al Pecho', 'Remo horizontal en polea', 'Remo en barra T', 'Remo con barra libre', 'Pull over'],
+            'Pecho': ['Press en banca Inclinado', 'Press en banca Plano', 'Peck Deck', 'Fondos', 'Flexiones'],
+            'Hombro': ['Press Militar', 'Elevaciones Laterales', 'Pájaros', 'Peck deck Inversa', 'Flexiones verticales'],
+            'Biceps': ['Curl de bicep', 'Curl de Bicep Predicador', 'Curl de Bicep Martillo', 'Curl de bicep Araña', 'Curl de Bicep Bayezian', 'Chin-Ups'],
+            'Triceps': ['Extensión de Tricep en Polea Alta', 'Extensión de Tricep por Encima de la Cabeza', 'Rompe Cráneos', 'JM Press', 'Fondos en máquina'],
+            'Cuadriceps': ['Sentadilla Libre', 'Sentadilla en Smith', 'Hack Squat', 'Prensa de Piernas', 'Extensión de Cuádriceps'],
+            'Femorales': ['Peso Muerto Rumano', 'Curl Femoral Acostado', 'Curl Femoral Sentado', 'Curl Femoral Parado', 'Good Morning'],
+            'Gluteo': ['Hip-Trust', 'Patada en Polea', 'Peso Muerto Convencional', 'Sentadillas Búlgaras', 'Step-Up'],
+            'Pantorrilla': ['Pantorrilla de pie', 'Pantorrilla Sentado en Máquina', 'Pantorrilla en Prensa', 'Saltar la cuerda'],
+            'Aductores': ['Máquina de Aductores', 'Sentadilla Sumo', 'Aducción en Polea Baja']
+        };
+
+        // Opciones de Cardio
+        const opcionesCardio = {
+            'Máquinas': ['Cinta de correr', 'Elíptica', 'Bicicleta estática'],
+            'Sin Máquinas': ['Burpees', 'Saltos de tijera']
+        };
+
+        const diasSemana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+        const contenedorRutinas = document.getElementById('contenedor-rutinas-dinamico');
+        let rutinaGuardada = {};
+        let rutinaFinal = {};
+
+        // 1. Cargar la rutina del localStorage
+        function cargarRutina() {
+            const rutinaJSON = localStorage.getItem('rutinaSeleccionada');
+            if (rutinaJSON) {
+                rutinaGuardada = JSON.parse(rutinaJSON);
+                generarInterfazAsignacion();
+            } else {
+                contenedorRutinas.innerHTML = '<p style="color:red;">Error: No se encontró la rutina semanal. Por favor, regresa al paso 1.</p><a href="seleccionar_rutina_paso1.html" class="menu-boton">Ir al Paso 1</a>';
+            }
+        }
+
+        // 2. Generar la interfaz dinámica (FUNCIÓN CORREGIDA)
+        function generarInterfazAsignacion() {
+            contenedorRutinas.innerHTML = ''; // Limpiar el contenido de carga
+
+            diasSemana.forEach(diaKey => {
+                const diaNombre = diaKey.charAt(0).toUpperCase() + diaKey.slice(1);
+                const diaInfo = rutinaGuardada[diaKey];
+                rutinaFinal[diaKey] = { entrena: diaInfo.entrena, ejercicios: {}, cardio: '' };
+
+                if (diaInfo.entrena) {
+                    // Si el día es de entreno
+                    const diaHTML = document.createElement('div');
+                    diaHTML.className = 'dia-entrenamiento';
+                    diaHTML.id = `dia-entreno-${diaKey}`;
+                    diaHTML.innerHTML = `<h3>Día ${diaNombre}</h3>`;
+                    
+                    diaInfo.grupos.forEach(grupo => {
+                        const grupoKey = grupo.replace(/\s/g, ''); // Para usar como ID/Name
+                        
+                        // CORRECCIÓN CLAVE: Usamos el objeto ejerciciosDisponibles
+                        const numEjercicios = ejerciciosDisponibles[grupo] ? ejerciciosDisponibles[grupo].length : 0;
+                        
+                        const grupoHTML = document.createElement('div');
+                        grupoHTML.className = 'grupo-ejercicios';
+                        grupoHTML.innerHTML = `
+                            <label>${grupo} (${numEjercicios} ejercicios disponibles):</label>
+                            <select class="select-ejercicio" id="select-${diaKey}-${grupoKey}">
+                                <option value="" disabled selected>-- Elige un ejercicio --</option>
+                                ${ejerciciosDisponibles[grupo].map(ej => `<option value="${ej}">${ej}</option>`).join('')}
+                            </select>
+                            <button type="button" class="boton-agregar" data-dia="${diaKey}" data-grupo="${grupo}">Añadir</button>
+                            <ul class="lista-ejercicios-seleccionados" id="lista-${diaKey}-${grupoKey}"></ul>
+                        `;
+                        diaHTML.appendChild(grupoHTML);
+                        rutinaFinal[diaKey].ejercicios[grupo] = []; // Inicializar la lista de ejercicios
+                    });
+
+                    // Sección de Cardio
+                    const cardioHTML = document.createElement('div');
+                    cardioHTML.className = 'cardio-section';
+                    cardioHTML.innerHTML = `
+                        <h4>Cardio (Opcional)</h4>
+                        <select class="select-ejercicio" name="cardio-${diaKey}" id="cardio-select-${diaKey}">
+                            <option value="">-- Sin Cardio --</option>
+                            <optgroup label="Máquinas">
+                                ${opcionesCardio['Máquinas'].map(c => `<option value="${c}">${c}</option>`).join('')}
+                            </optgroup>
+                            <optgroup label="Sin Máquinas">
+                                ${opcionesCardio['Sin Máquinas'].map(c => `<option value="${c}">${c}</option>`).join('')}
+                            </optgroup>
+                        </select>
+                    `;
+                    diaHTML.appendChild(cardioHTML);
+                    
+                    contenedorRutinas.appendChild(diaHTML);
+                } else {
+                    // Si el día es de descanso
+                    const descansoHTML = document.createElement('div');
+                    descansoHTML.className = 'dia-descanso';
+                    descansoHTML.innerHTML = `<h3>Día ${diaNombre}: 😴 Descanso</h3>`;
+                    contenedorRutinas.appendChild(descansoHTML);
+                }
+            });
+
+            // Añadir Listeners para los botones de Añadir
+            document.querySelectorAll('.boton-agregar').forEach(button => {
+                button.addEventListener('click', agregarEjercicio);
+            });
+            
+            // Añadir Listeners para los selects de Cardio
+            document.querySelectorAll('[id^="cardio-select-"]').forEach(select => {
+                select.addEventListener('change', actualizarCardio);
+            });
+        }
+
+        // 3. Funciones para manejar la asignación de ejercicios
+        function agregarEjercicio(event) {
+            const button = event.target;
+            const dia = button.getAttribute('data-dia');
+            const grupo = button.getAttribute('data-grupo');
+            const grupoKey = grupo.replace(/\s/g, '');
+            const select = document.getElementById(`select-${dia}-${grupoKey}`);
+            const ejercicio = select.value;
+            
+            if (ejercicio && !rutinaFinal[dia].ejercicios[grupo].includes(ejercicio)) {
+                rutinaFinal[dia].ejercicios[grupo].push(ejercicio);
+                renderizarListaEjercicios(dia, grupo);
+            }
+            select.value = ""; // Resetear la selección
+        }
+
+        function eliminarEjercicio(dia, grupo, ejercicio) {
+            const index = rutinaFinal[dia].ejercicios[grupo].indexOf(ejercicio);
+            if (index > -1) {
+                rutinaFinal[dia].ejercicios[grupo].splice(index, 1);
+                renderizarListaEjercicios(dia, grupo);
+            }
+        }
+        
+        function actualizarCardio(event) {
+             const select = event.target;
+             const dia = select.id.replace('cardio-select-', '');
+             rutinaFinal[dia].cardio = select.value;
+        }
+
+        function renderizarListaEjercicios(dia, grupo) {
+            const grupoKey = grupo.replace(/\s/g, '');
+            const lista = document.getElementById(`lista-${dia}-${grupoKey}`);
+            lista.innerHTML = '';
+
+            rutinaFinal[dia].ejercicios[grupo].forEach(ejercicio => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    ${ejercicio} 
+                    <button type="button" class="boton-eliminar" data-ejercicio="${ejercicio}">Eliminar</button>
+                `;
+                li.querySelector('.boton-eliminar').addEventListener('click', () => {
+                    eliminarEjercicio(dia, grupo, ejercicio);
+                });
+                lista.appendChild(li);
+            });
+        }
+        
+        // 4. Manejar la finalización del formulario
+        document.getElementById('formAsignacionEjercicios').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Guardar la rutina final en localStorage
+            localStorage.setItem('rutinaFinalGenerada', JSON.stringify(rutinaFinal));
+            
+            // Redirigir a una página de resumen (Paso 3)
+            window.location.href = 'resumen_rutina_paso3.html';
+        });
+
+        // Iniciar el proceso
+        cargarRutina();
+    </script>
+</body>
+</html>
